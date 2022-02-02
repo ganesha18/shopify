@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "976092341851",
+    "project_id": "shiftyhouse-fe1ee",
+    "storage_bucket": "shiftyhouse-fe1ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976092341851:android:f5fc4d274d653f4911c17e",
+        "android_client_info": {
+          "package_name": "com.example.flutter_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976092341851-qcg6k4sgiknvuju3rr0jm45bm8a0tui0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf8xZw-3gqaAtiQvnJ0gSLAgLIFeeSO6k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976092341851-qcg6k4sgiknvuju3rr0jm45bm8a0tui0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
