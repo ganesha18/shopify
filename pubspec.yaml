@@ -42,6 +42,7 @@ dependencies:
   pinput:
   convex_bottom_bar:
   flutter_switch:
+  font_awesome_flutter: ^9.1.0
 
 
   

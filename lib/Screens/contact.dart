@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Screens/home.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'login.dart';
 
@@ -158,8 +159,8 @@ class _ContactState extends State<Contact> {
                                             FlatButton.icon(
                                               onPressed: () {},
                                               icon: Container(
-                                                height: 50,
-                                                width: 50,
+                                                height: 60,
+                                                width: 60,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(20),
@@ -239,8 +240,8 @@ class _ContactState extends State<Contact> {
                                             FlatButton.icon(
                                                 onPressed: () {},
                                                 icon: Container(
-                                                  height: 50,
-                                                  width: 50,
+                                                  height: 60,
+                                                  width: 60,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -310,8 +311,8 @@ class _ContactState extends State<Contact> {
                                               child: FlatButton.icon(
                                                 onPressed: () {},
                                                 icon: Container(
-                                                  height: 50,
-                                                  width: 50,
+                                                  height: 60,
+                                                  width: 60,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -375,20 +376,22 @@ class _ContactState extends State<Contact> {
                                               child: FlatButton.icon(
                                                   onPressed: () {},
                                                   icon: Container(
-                                                    height: 70,
-                                                    width: 70,
+                                                    height: 60,
+                                                    width: 60,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              50),
-                                                      // border: Border.all(color: Colors.grey),
-                                                      //  color: Colors.yellowAccent,
+                                                              20),
+                                                      border: Border.all(
+                                                          color: Colors.grey),
+                                                      color: Colors.yellow,
                                                     ),
                                                     child: Center(
-                                                      child: Image.asset(
-                                                        "images/questionmarks1.jpg",
-                                                        height: 70,
-                                                        width: 70,
+                                                      child: FaIcon(
+                                                        FontAwesomeIcons
+                                                            .question,
+                                                        size: 35,
+                                                        color: Colors.white,
                                                       ),
                                                     ),
                                                   ),
