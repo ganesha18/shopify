@@ -1,13 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/Screens/account.dart';
-import 'package:flutter_project/Screens/notification.dart';
-import 'package:flutter_project/Screens/offer.dart';
-import 'package:flutter_project/models/offer.dart';
+import 'HouseShifting/Service_de_menege.dart';
+import 'HouseShifting/commercial_shifitng_service.dart';
 import 'contact.dart';
 import 'login.dart';
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -23,11 +20,7 @@ class _HomeState extends State<Home> {
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-              //begin: Alignment.topCenter,
-              colors: [
-                Colors.deepOrange,
-              ]),
+          color: Color.fromRGBO(253, 107, 34, 0.8),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +40,8 @@ class _HomeState extends State<Home> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Contact()),
+                          MaterialPageRoute(
+                              builder: (context) => Service_de_menage()),
                         );
                       },
                       icon: Icon(
@@ -68,7 +62,7 @@ class _HomeState extends State<Home> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => LoginScreen()),
+                              builder: (context) => CommercialShifitingService()),
                         );
                       },
                       icon: Icon(
@@ -106,7 +100,7 @@ class _HomeState extends State<Home> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 10),
                                 child: Text(
-                                  "    Bienvenue",
+                                  "   Bienvenue",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontFamily: 'DM_Sans',
@@ -125,10 +119,11 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                         Text(
-                          "     Besoin d'un coup de main?",
+                          "       Besoin d'un coup de main?",
                           style: TextStyle(
                             // fontWeight: FontWeight.bold,
                             fontFamily: 'DM_Sans',
+                            color: Colors.grey,
                             fontSize: 20,
                           ),
                         ),
@@ -140,36 +135,26 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: 30,
+                              width: 20,
                             ),
-                            FlatButton(
-                              height: 100,
-                              minWidth: 30,
+                            TextButton(
                               onPressed: () {},
                               child: Image.asset(
                                 "images/menage1.jpg",
-                                height: 100,
-                                width: 80,
+
                               ),
                             ),
-                            FlatButton(
-                              height: 100,
-                              minWidth: 30,
+                            TextButton(
                               onPressed: () {},
                               child: Image.asset(
                                 "images/rep1.jpg",
-                                height: 100,
-                                width: 80,
                               ),
                             ),
-                            FlatButton(
-                              height: 100,
-                              minWidth: 30,
+                            TextButton(
                               onPressed: () {},
                               child: Image.asset(
                                 "images/revotion1.jpg",
-                                height: 100,
-                                width: 80,
+
                               ),
                             ),
                           ],
@@ -191,68 +176,86 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
-                        Row(
+                        Padding(padding: EdgeInsets.all(10),
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            FlatButton(
-                              height: 30,
-                              minWidth: 40,
-                              onPressed: () {},
-                              child: Container(
-                                height: 40,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: Colors.grey),
-                                  color: Colors.deepOrange,
-                                ),
+                            SizedBox(width: 10,),
+                            TextButton(
                                 child: Center(
                                   child: Text(
-                                    "Trendences",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
+                                    "trendences",
+                                    style: TextStyle(color: Colors.black),
                                   ),
                                 ),
-                              ),
-                            ),
-                            FlatButton(
-                              height: 30,
-                              minWidth: 40,
-                              onPressed: () {},
-                              child: Container(
-                                height: 40,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: Colors.grey),
-                                ),
+                                style: ButtonStyle(
+                                    backgroundColor:  MaterialStateProperty.all<Color>(
+                                      Color.fromRGBO(253, 107, 34, 0.8),),
+                                    padding:
+                                        MaterialStateProperty.all<EdgeInsets>(
+                                            EdgeInsets.all(15)),
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                          Color.fromRGBO(253, 107, 34, 0.8),),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            side: BorderSide(
+                                              color:  Color.fromRGBO(253, 107, 34, 0.8),)))),
+                                onPressed: () => null),
+
+                            SizedBox(width: 5,), TextButton(
                                 child: Center(
-                                  child: Text("Promotions"),
+                                  child: Text(
+                                    "Promotions",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            FlatButton(
-                              height: 30,
-                              minWidth: 40,
-                              onPressed: () {},
-                              child: Container(
-                                height: 40,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: Colors.grey),
-                                ),
+                                style: ButtonStyle(
+                                    padding:
+                                        MaterialStateProperty.all<EdgeInsets>(
+                                            EdgeInsets.all(15)),
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.white),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            side: BorderSide(
+                                                color: Colors.grey)))),
+                                onPressed: () => null),
+                            SizedBox(width: 5,),
+                            TextButton(
                                 child: Center(
-                                  child: Text("Products"),
+                                  child: Text(
+                                    "Products",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
                                 ),
-                              ),
-                            ),
+                                style: ButtonStyle(
+                                    padding:
+                                        MaterialStateProperty.all<EdgeInsets>(
+                                            EdgeInsets.all(15)),
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.white),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            side: BorderSide(
+                                                color: Colors.grey)))),
+                                onPressed: () => null),
                           ],
-                        ),
+                        ),),
                         SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         SizedBox(
                           height: 150,
@@ -301,13 +304,11 @@ class _HomeState extends State<Home> {
                             itemBuilder: (BuildContext context, int index) =>
                                 Column(
                               children: [
-                                FlatButton(
-                                  height: 100,
-                                  minWidth: 100,
+                                TextButton(
                                   onPressed: () {},
                                   child: Container(
-                                    height: 150,
-                                    width: 100,
+                                    height: 100,
+                                    width: 90,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       //    border: Border.all(color: Colors.grey),
@@ -315,14 +316,15 @@ class _HomeState extends State<Home> {
                                     ),
                                     child: Image.asset(
                                       "images/rep1.jpg",
-                                      height: 220,
-                                      width: 190,
                                     ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
+                        ),
+                        SizedBox(
+                          height: 30,
                         ),
                       ]),
                 ),

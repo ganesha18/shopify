@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'home.dart';
 import 'login.dart';
+import 'loginPage/login.dart';
 
 class Onbording extends StatefulWidget {
   @override
@@ -43,14 +44,14 @@ class _OnbordingState extends State<Onbording> {
               itemBuilder: (_, i) {
                 return Padding(
                   padding: const EdgeInsets.only(
-                      right: 40, left: 40, top: 90, bottom: 0),
+                      right: 30, left: 30, top: 90, bottom: 0),
                   child: Column(
                     children: [
                       Image(
                         image: AssetImage(
                           contents[i].image,
                         ),
-                        height: 300,
+                        height: 340,
                       ),
                       SizedBox(
                         height: 10,
@@ -69,7 +70,7 @@ class _OnbordingState extends State<Onbording> {
                         contents[i].discription,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           color: Colors.grey,
                         ),
                       )
@@ -110,7 +111,7 @@ class _OnbordingState extends State<Onbording> {
                   curve: Curves.bounceIn,
                 );
               },
-              color: Theme.of(context).primaryColor,
+              color: Color.fromRGBO(253, 107, 34, 0.7),
               textColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -129,7 +130,7 @@ class _OnbordingState extends State<Onbording> {
       margin: EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Theme.of(context).primaryColor,
+        color: Color.fromRGBO(253, 107, 34, 0.9),
       ),
     );
   }

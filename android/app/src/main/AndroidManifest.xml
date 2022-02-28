@@ -1,6 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.flutter_project">
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
+
         android:label="flutter_project"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -30,5 +34,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-    </application>
+       <!-- TODO: Add your Google Maps API key here -->
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyBHY65V8nNpKL_GghvCVllz1kn2fcYWV54"/>
+
+   </application>
 </manifest>

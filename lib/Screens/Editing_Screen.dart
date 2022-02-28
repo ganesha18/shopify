@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/common/theme_Helper.dart';
 import 'account.dart';
 import 'addASocialAccount.dart';
+import 'contact.dart';
 import 'home.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -19,11 +20,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         body: Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-            //begin: Alignment.topCenter,
-            colors: [
-              Colors.black,
-            ]),
+        color: Color.fromRGBO(253, 107, 34, 0.8),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +48,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
               ),
               SizedBox(
-                width: 30,
+                width: 25,
               ),
               Container(
                 child: Center(
@@ -65,7 +62,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
               ),
               SizedBox(
-                width: 65,
+                width: 60,
               ),
               Container(
                 height: 70,
@@ -75,8 +72,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => AddSocialAccount()),
+                      MaterialPageRoute(builder: (context) => Contact()),
                     );
                   },
                   icon: Icon(
@@ -112,40 +108,40 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           height: 130,
                           decoration: BoxDecoration(
                               border: Border.all(
-                                  width: 4,
-                                  color: Theme.of(context)
-                                      .scaffoldBackgroundColor),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
                               boxShadow: [
                                 BoxShadow(
                                     spreadRadius: 2,
                                     blurRadius: 10,
-                                    color: Colors.black.withOpacity(0.1),
+                                    color: Colors.grey.withOpacity(0.1),
                                     offset: Offset(0, 10))
                               ],
-                              shape: BoxShape.circle,
+                              shape: BoxShape.rectangle,
                               image: DecorationImage(
                                   fit: BoxFit.cover,
                                   image: NetworkImage(
-                                    "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
+                                    "https://www.whatsappimages.in/wp-content/uploads/2021/01/Feeling-Very-Sad-Images-Photo-Download-3.jpg",
                                   ))),
                         ),
                         Positioned(
-                            bottom: 0,
-                            right: 0,
+                            bottom: 30,
+                            right: 30,
+                            top: 30,
+                            left: 30,
                             child: Container(
-                              height: 40,
-                              width: 40,
+                              height: 60,
+                              width: 60,
                               decoration: BoxDecoration(
-                                shape: BoxShape.circle,
+                                shape: BoxShape.rectangle,
+
                                 border: Border.all(
-                                  width: 4,
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                ),
-                                color: Colors.deepOrange,
+                                    width: 1, color: Colors.transparent),
+                                // color: Colors.deepOrange,
                               ),
                               child: Icon(
-                                Icons.edit,
+                                Icons.add_a_photo_outlined,
                                 color: Colors.white,
                               ),
                             )),
@@ -190,7 +186,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                         TextField(
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(20, 5, 20, 10),
+                            contentPadding: EdgeInsets.fromLTRB(0, 0, 10, 10),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15.0),
                                 borderSide: BorderSide(color: Colors.grey)),
@@ -408,7 +404,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: Colors.grey),
-                      color: Colors.deepOrange,
+                      color: Color.fromRGBO(253, 107, 34, 0.8),
                     ),
                     child: FlatButton.icon(
                       onPressed: () {},

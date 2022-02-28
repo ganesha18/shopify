@@ -5,6 +5,8 @@ import 'package:flutter_project/Screens/home.dart';
 import 'package:flutter_project/Screens/notification.dart';
 import 'package:flutter_project/Screens/offer.dart';
 
+import '../Screens/history/MapHistory1.dart';
+
 class bottomBar extends StatefulWidget {
   const bottomBar({Key? key}) : super(key: key);
 
@@ -14,7 +16,7 @@ class bottomBar extends StatefulWidget {
 
 class _bottomBarState extends State<bottomBar> {
   int selectedpage = 0;
-  final _pageOption = [Home(), notification(), offerpage(), AccountPage()];
+  final _pageOption = [Home(), Map_history1(), offerpage(), AccountPage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

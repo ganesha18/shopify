@@ -16,12 +16,13 @@ class _AddSocialAccountState extends State<AddSocialAccount> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
+      color: Color.fromRGBO(253, 107, 34, 0.8),
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(
             //begin: Alignment.topCenter,
             colors: [
-              Colors.black,
+              //     Colors.black,
             ]),
       ),
       child: Column(
@@ -192,21 +193,22 @@ class _AddSocialAccountState extends State<AddSocialAccount> {
                           onPressed: () {},
                           label: Center(
                             child: Text(
-                              "      Connect with Google",
-                              style: TextStyle(color: Colors.blue),
+                              "             Connect with Google",
+                              style: TextStyle(color: Colors.black),
                             ),
                           ),
                           icon: Container(
                             height: 30,
-                            width: 10,
+                            width: 5,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               //border: Border.all(color: Colors.grey),
                               // color: Colors.redAccent[250],
                             ),
                             child: FaIcon(
-                              FontAwesomeIcons.googlePlus,
+                              FontAwesomeIcons.google,
                               size: 35,
+                              color: Colors.redAccent,
                             ),
                           ),
                         ),
@@ -232,13 +234,13 @@ class _AddSocialAccountState extends State<AddSocialAccount> {
                           onPressed: () {},
                           label: Center(
                             child: Text(
-                              "      Connect with Facebook",
-                              style: TextStyle(color: Colors.blue),
+                              "            Connect with Facebook",
+                              style: TextStyle(color: Colors.black),
                             ),
                           ),
                           icon: Container(
                             height: 30,
-                            width: 10,
+                            width: 5,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               //border: Border.all(color: Colors.grey),
@@ -249,6 +251,7 @@ class _AddSocialAccountState extends State<AddSocialAccount> {
                               child: FaIcon(
                                 FontAwesomeIcons.facebook,
                                 size: 35,
+                                color: Colors.blue,
                               ),
                             ),
                           ),
@@ -275,13 +278,13 @@ class _AddSocialAccountState extends State<AddSocialAccount> {
                           onPressed: () {},
                           label: Center(
                             child: Text(
-                              "      Connect with Twitter",
-                              style: TextStyle(color: Colors.blue),
+                              "            Connect with Twitter",
+                              style: TextStyle(color: Colors.black),
                             ),
                           ),
                           icon: Container(
                             height: 30,
-                            width: 10,
+                            width: 5,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               //border: Border.all(color: Colors.grey),
@@ -290,7 +293,53 @@ class _AddSocialAccountState extends State<AddSocialAccount> {
                             child: FaIcon(
                               FontAwesomeIcons.twitter,
                               size: 35,
+                              color: Colors.blueAccent[100],
                             ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 90,
+                ),
+                Container(
+                  height: 60,
+                  width: 325,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey),
+                    // color: Colors.redAccent[250],
+                  ),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 70,
+                      ),
+                      Center(
+                        child: Text(
+                          "       Go to Homepage ",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      FlatButton.icon(
+                        onPressed: () {},
+                        label: Text(""),
+                        icon: Container(
+                          height: 30,
+                          width: 10,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            //border: Border.all(color: Colors.grey),
+                            // color: Colors.redAccent[250],
+                          ),
+                          child: Icon(
+                            Icons.arrow_forward,
+                            //     color: Colors.red,
                           ),
                         ),
                       ),

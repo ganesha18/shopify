@@ -4,6 +4,7 @@ import 'package:flutter_project/Screens/home.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'login.dart';
+import 'loginPage/ChangePassword.dart';
 
 class Contact extends StatefulWidget {
   const Contact({Key? key}) : super(key: key);
@@ -19,10 +20,11 @@ class _ContactState extends State<Contact> {
       body: Container(
           width: double.infinity,
           decoration: BoxDecoration(
+            color: Color.fromRGBO(253, 107, 34, 0.8),
             gradient: LinearGradient(
                 //begin: Alignment.topCenter,
                 colors: [
-                  Colors.deepOrange,
+                  //  Colors.deepOrange,
                 ]),
           ),
           child: Column(
@@ -51,7 +53,7 @@ class _ContactState extends State<Contact> {
                     ),
                   ),
                   SizedBox(
-                    width: 40,
+                    width: 35,
                   ),
                   Container(
                     child: Center(
@@ -65,7 +67,7 @@ class _ContactState extends State<Contact> {
                     ),
                   ),
                   SizedBox(
-                    width: 35,
+                    width: 38,
                   ),
                   Container(
                     height: 70,
@@ -75,7 +77,8 @@ class _ContactState extends State<Contact> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Home()),
+                          MaterialPageRoute(
+                              builder: (context) => ChangePassword()),
                         );
                       },
                       icon: Icon(
@@ -122,10 +125,10 @@ class _ContactState extends State<Contact> {
                           child: Text(
                             "Veuilez choisir les types de soutien dont vous avez besein et faites-le nous savoir.",
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'DM_Sans',
-                              fontSize: 16,
-                            ),
+                                //fontWeight: FontWeight.bold,
+                                fontFamily: 'DM_Sans',
+                                fontSize: 16,
+                                color: Colors.grey),
                           ),
                         ),
                         SizedBox(
@@ -142,142 +145,38 @@ class _ContactState extends State<Contact> {
                                   child: Row(
                                     children: [
                                       Container(
-                                        height: 160,
-                                        width: 160,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          border:
-                                              Border.all(color: Colors.grey),
-                                          //color: Colors.lightGreenAccent,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            FlatButton.icon(
-                                              onPressed: () {},
-                                              icon: Container(
-                                                height: 60,
-                                                width: 60,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  border: Border.all(
-                                                      color: Colors.grey),
-                                                  color: Colors
-                                                      .lightGreenAccent[200],
-                                                ),
-                                                child: Icon(
-                                                  Icons.message,
-                                                  color: Colors.green,
-                                                ),
-                                              ),
-                                              label: Text(""),
-                                            ),
-                                            Column(
-                                              children: [
-                                                SizedBox(
-                                                  height: 5,
-                                                ),
-                                                Center(
-                                                    child: Text(
-                                                  "Chat",
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  ),
-                                                )),
-                                                Center(
-                                                    child: Text(
-                                                  " d'assistance",
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                  ),
-                                                )),
-                                                SizedBox(
-                                                  height: 5,
-                                                ),
-                                                Center(
-                                                  child: Text(
-                                                    "   Assistande en ligma ",
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Center(
-                                                  child: Text(
-                                                    " 24/7",
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
+                                          height: 160,
+                                          width: 160,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            border:
+                                                Border.all(color: Colors.grey),
+                                            //color: Colors.lightGreenAccent,
+                                          ),
+                                          child: Image.asset(
+                                            "images/chat.JPG",
+                                            height: 100,
+                                            width: 100,
+                                          )),
                                       SizedBox(
                                         width: 5,
                                       ),
                                       Container(
-                                        height: 160,
-                                        width: 160,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          border:
-                                              Border.all(color: Colors.grey),
-                                          //  color: Colors.lightBlueAccent,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            FlatButton.icon(
-                                                onPressed: () {},
-                                                icon: Container(
-                                                  height: 60,
-                                                  width: 60,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                    border: Border.all(
-                                                        color: Colors.grey),
-                                                    color:
-                                                        Colors.redAccent[100],
-                                                  ),
-                                                  child: Icon(
-                                                    Icons.add_call,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                                label: Text("")),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text(
-                                              "Telephone",
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              "Services Available 24/7",
-                                              style:
-                                                  TextStyle(color: Colors.grey),
-                                            ),
-                                          ],
-                                        ),
-                                      )
+                                          height: 160,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            border:
+                                                Border.all(color: Colors.grey),
+                                            //  color: Colors.lightBlueAccent,
+                                          ),
+                                          child: Image.asset(
+                                            "images/t.JPG",
+                                            height: 50,
+                                            width: 50,
+                                          )),
                                     ],
                                   ),
                                 )),
@@ -293,135 +192,40 @@ class _ContactState extends State<Contact> {
                                   child: Row(
                                     children: [
                                       Container(
-                                        height: 160,
-                                        width: 160,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          border:
-                                              Border.all(color: Colors.grey),
-                                          //color: Colors.lightGreenAccent,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Center(
-                                              child: FlatButton.icon(
-                                                onPressed: () {},
-                                                icon: Container(
-                                                  height: 60,
-                                                  width: 60,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                    border: Border.all(
-                                                        color: Colors.grey),
-                                                    color: Colors.purpleAccent,
-                                                  ),
-                                                  child: Icon(
-                                                    Icons.email,
-                                                    color: Colors.purple,
-                                                  ),
-                                                ),
-                                                label: Text(""),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Column(
-                                              children: [
-                                                Center(
-                                                    child: Text(
-                                                  "Email",
-                                                  style: TextStyle(
-                                                    fontSize: 20,
-                                                  ),
-                                                )),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  "admin@gmail.com",
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
+                                          height: 160,
+                                          width: 160,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            border:
+                                                Border.all(color: Colors.grey),
+                                            //color: Colors.lightGreenAccent,
+                                          ),
+                                          child: Image.asset(
+                                            "images/email.JPG",
+                                            height: 100,
+                                            width: 100,
+                                          )),
                                       SizedBox(
                                         width: 5,
                                       ),
                                       Container(
-                                        height: 160,
-                                        width: 160,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          border:
-                                              Border.all(color: Colors.grey),
-                                          //  color: Colors.lightBlueAccent,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 10,
+                                          height: 160,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            border:
+                                                Border.all(color: Colors.grey),
+                                            //  color: Colors.lightBlueAccent,
+                                          ),
+                                          child: Center(
+                                            child: Image.asset(
+                                              "images/F.JPG",
+                                              height: 160,
+                                              width: 160,
                                             ),
-                                            Center(
-                                              child: FlatButton.icon(
-                                                  onPressed: () {},
-                                                  icon: Container(
-                                                    height: 60,
-                                                    width: 60,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                      border: Border.all(
-                                                          color: Colors.grey),
-                                                      color: Colors.yellow,
-                                                    ),
-                                                    child: Center(
-                                                      child: FaIcon(
-                                                        FontAwesomeIcons
-                                                            .question,
-                                                        size: 35,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  label: Text("")),
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Center(
-                                              child: Text(
-                                                "FAQ",
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Center(
-                                              child: Text(
-                                                "+50 queries",
-                                                style: TextStyle(
-                                                    color: Colors.grey),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
+                                          )),
                                     ],
                                   ),
                                 )),

@@ -73,7 +73,7 @@ class ThemeHelper {
         ),
       ),
       minimumSize: MaterialStateProperty.all(Size(50, 50)),
-      backgroundColor: MaterialStateProperty.all(Colors.deepOrange),
+      backgroundColor: MaterialStateProperty.all(Colors.deepOrange[400]),
       shadowColor: MaterialStateProperty.all(Colors.transparent),
     );
   }

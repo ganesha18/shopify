@@ -16,11 +16,7 @@ class _offerpageState extends State<offerpage> {
       body: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-                //begin: Alignment.topCenter,
-                colors: [
-                  Colors.deepOrange,
-                ]),
+            color: Colors.deepOrange[400],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,14 +120,16 @@ class _offerpageState extends State<offerpage> {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemCount: 5,
-                        itemBuilder: (BuildContext context, int index) =>
-                            Container(
-                                alignment: Alignment.topLeft,
-                                child: Image.asset(
-                                  "images/Home.JPG",
-                                  height: 100,
-                                  width: 200,
-                                )),
+                        itemBuilder: (BuildContext context, int index) => Card(
+                          child: Container(
+                            alignment: Alignment.topLeft,
+                            child: Image.asset(
+                              "images/offer.JPG",
+                              height: 100,
+                              width: 210,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(

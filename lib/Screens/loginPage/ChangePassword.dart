@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/common/theme_Helper.dart';
 
+import '../account.dart';
 import '../home.dart';
 
 class ChangePassword extends StatefulWidget {
@@ -18,20 +19,52 @@ class _ChangePasswordState extends State<ChangePassword> {
         body: Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-            //begin: Alignment.topCenter,
-            colors: [
-              Colors.black,
-            ]),
+        color: Color.fromRGBO(253, 107, 34, 0.8),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 7,
+            height: 10,
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              SizedBox(height: 20),
+              Container(
+                height: 90,
+                width: 90,
+                child: IconButton(
+                  // color: Colors.white,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AccountPage()),
+                    );
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 30),
+                child: Text(
+                  "Change Password",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 20,
+              ),
               Container(
                 height: 90,
                 width: 90,
@@ -44,41 +77,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     );
                   },
                   icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 30,
-              ),
-              Container(
-                child: Center(
-                  child: Text(
-                    "Change Password ",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 30,
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                child: IconButton(
-                  // color: Colors.white,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Home()),
-                    );
-                  },
-                  icon: Icon(
-                    Icons.doorbell,
+                    Icons.doorbell_sharp,
                     color: Colors.white,
                   ),
                 ),
@@ -103,25 +102,25 @@ class _ChangePasswordState extends State<ChangePassword> {
                     height: 50,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 30, right: 30),
+                    padding: EdgeInsets.only(left: 0, right: 30),
                     child: Text(
                       "Change Password",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: 'DM_Sans',
-                        fontSize: 22,
+                        fontSize: 35,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 30, right: 30),
+                    padding: EdgeInsets.only(left: 25, right: 30),
                     child: Text(
-                      "Please note changing password will required again login to the app",
+                      "Please note changing passwords will required again login to the app.",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        //fontWeight: FontWeight.bold,
                         fontFamily: 'DM_Sans',
                         color: Colors.grey,
-                        fontSize: 16,
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -168,7 +167,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             ),
                             validator: (val) {
                               if (val!.isEmpty) {
-                                return "Enter your Mot de passe";
+                                return "Enter your Current Pasword";
                               }
                               return null;
                             },
@@ -214,7 +213,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             ),
                             validator: (val) {
                               if (val!.isEmpty) {
-                                return "Enter your Mot de passe";
+                                return "Enter your New Password";
                               }
                               return null;
                             },
@@ -260,7 +259,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             ),
                             validator: (val) {
                               if (val!.isEmpty) {
-                                return "Enter your Mot de passe";
+                                return "Enter your Confirm New Password";
                               }
                               return null;
                             },
@@ -278,8 +277,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                     width: 270,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.grey),
-                      color: Colors.deepOrange,
+                      // border: Border.all(color: Colors.deepOrange),
+                      color: Color.fromRGBO(253, 107, 34, 0.8),
                     ),
                     child: FlatButton.icon(
                       onPressed: () {},

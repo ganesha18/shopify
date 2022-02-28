@@ -20,7 +20,7 @@ class _ParaghranageState extends State<Paraghranage> {
         gradient: LinearGradient(
             //begin: Alignment.topCenter,
             colors: [
-              Colors.deepOrange,
+              Colors.white,
             ]),
       ),
       child: Column(
@@ -28,61 +28,6 @@ class _ParaghranageState extends State<Paraghranage> {
         children: [
           SizedBox(
             height: 7,
-          ),
-          Row(
-            children: <Widget>[
-              Container(
-                height: 90,
-                width: 90,
-                child: IconButton(
-                  // color: Colors.white,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Home()),
-                    );
-                  },
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 65,
-              ),
-              Container(
-                child: Center(
-                  child: Text(
-                    "Parrainge",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 60,
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                child: IconButton(
-                  // color: Colors.white,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ChangePassword()),
-                    );
-                  },
-                  icon: Icon(
-                    Icons.doorbell,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ],
           ),
           SizedBox(
             height: 10,
@@ -99,7 +44,7 @@ class _ParaghranageState extends State<Paraghranage> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 30,
+                  height: 90,
                 ),
                 Container(
                   alignment: Alignment.topLeft,
@@ -110,8 +55,8 @@ class _ParaghranageState extends State<Paraghranage> {
                         alignment: Alignment.topCenter,
                         child: Image.asset(
                           "images/g1.JPG",
-                          height: 100,
-                          width: 100,
+                          height: 140,
+                          width: 140,
                         ),
                       ),
                     ),
@@ -132,7 +77,7 @@ class _ParaghranageState extends State<Paraghranage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 30, right: 30),
+                  padding: EdgeInsets.only(top: 10, left: 30, right: 30),
                   child: Center(
                     child: Text(
                       "Obtenez un code de coupon de 30DH",
@@ -173,6 +118,9 @@ class _ParaghranageState extends State<Paraghranage> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
                 Container(
                   child: Column(
                     children: [
@@ -180,6 +128,7 @@ class _ParaghranageState extends State<Paraghranage> {
                         height: 20,
                       ),
                       Container(
+                        color: Colors.blue[50],
                         height: 60,
                         width: 270,
                         decoration: BoxDecoration(
@@ -187,27 +136,20 @@ class _ParaghranageState extends State<Paraghranage> {
                           border: Border.all(color: Colors.grey),
                           // color: Colors.redAccent[250],
                         ),
-                        child: FlatButton.icon(
+                        child: FlatButton(
                           onPressed: () {},
-                          label: Center(
+                          child: Center(
                             child: Text(
                               "https://ui8.net/76738b",
-                              style: TextStyle(color: Colors.blue),
-                            ),
-                          ),
-                          icon: Container(
-                            height: 30,
-                            width: 10,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              //border: Border.all(color: Colors.grey),
-                              // color: Colors.redAccent[250],
+                              style: TextStyle(
+                                color: Colors.blue,
+                              ),
                             ),
                           ),
                         ),
                       ),
                       SizedBox(
-                        height: 120,
+                        height: 200,
                       ),
                       Container(
                         height: 60,
