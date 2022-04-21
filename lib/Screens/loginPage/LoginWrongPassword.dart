@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/common/theme_Helper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../home.dart';
-import '../login.dart';
 import 'forgetEmailPage alert.dart';
-import 'loginForgetPassword.dart';
 
 class LoginWrong_Password extends StatefulWidget {
   const LoginWrong_Password({Key? key}) : super(key: key);

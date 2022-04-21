@@ -1,14 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../vehicle/commandConfirmation.dart';
-import '../../vehicle/confirmLocation.dart';
-import '../HouseShifting/housShifting.dart';
-import '../cleaningPage/calender1.dart';
-import '../contact.dart';
 import '../home.dart';
 import '../login.dart';
-import '../loginPage/setNewPassword.dart';
 
 class CommandConfirme1 extends StatefulWidget {
   const CommandConfirme1({Key? key}) : super(key: key);
@@ -238,7 +232,13 @@ class _CommandConfirme1State extends State<CommandConfirme1> {
                               ),
                             ),
                             FlatButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Home()),
+                                );
+                              },
                               label: Text(""),
                               icon: Container(
                                 height: 30,

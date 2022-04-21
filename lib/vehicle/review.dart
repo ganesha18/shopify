@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/vehicle/vehicleCOnfirmation.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../Screens/LocationMap.dart';
 import '../Screens/cleaningPage/calender1.dart';
 import '../Screens/home.dart';
@@ -12,6 +12,15 @@ class reviewPage extends StatefulWidget {
 }
 
 class _reviewPageState extends State<reviewPage> {
+  final TextEditingController _controller = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,8 +58,7 @@ class _reviewPageState extends State<reviewPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => Cleaning_service_Calender2()),
+                      MaterialPageRoute(builder: (context) => Home()),
                     );
                   },
                   icon: Icon(
@@ -146,7 +154,7 @@ class _reviewPageState extends State<reviewPage> {
             SizedBox(height: 10),
             Padding(
               padding: EdgeInsets.only(left: 5),
-              child: Text("WRITE A REVIEW                                   ",
+              child: Text("                                  ",
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 16,
@@ -154,42 +162,24 @@ class _reviewPageState extends State<reviewPage> {
             ),
             Padding(
               padding: EdgeInsets.only(left: 10, right: 10),
-              child: Container(
-                height: 290,
-                width: 300,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  //    color: Colors.grey[200],
-                ),
-                padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Type here',
-                    //labelText: "Type here",
-                    suffixIcon: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        //     color: Colors.grey[200]
-                      ),
-                    ),
+              child: Form(
+                key: _formKey,
+                child: TextFormField(
+                  controller: _controller,
+                  keyboardType: TextInputType.multiline,
+                  decoration: const InputDecoration(
+                    hintText: '"WRITE A REVIEW ',
                     filled: true,
-                    // fillColor: Colors.blueGrey[50],
-                    labelStyle: TextStyle(fontSize: 12),
-                    contentPadding: EdgeInsets.only(
-                      left: 20,
-                      right: 20,
-                      top: 20,
-                      bottom: 10,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
                   ),
+                  maxLines: 5,
+                  maxLength: 4096,
+                  textInputAction: TextInputAction.done,
+                  validator: (String? text) {
+                    if (text == null || text.isEmpty) {
+                      return 'Please enter a value';
+                    }
+                    return null;
+                  },
                 ),
               ),
             ),
@@ -205,7 +195,7 @@ class _reviewPageState extends State<reviewPage> {
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.grey[100]),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.pop(context),
                         child: Center(
                             child: Text(
                           "Skip",
@@ -222,7 +212,35 @@ class _reviewPageState extends State<reviewPage> {
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.deepOrange[400]),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          // Only if the input form is valid (the user has entered text)
+                          if (_formKey.currentState!.validate()) {
+                            // We will use this var to show the result
+                            // of this operation to the user
+                            String message;
+
+                            try {
+                              // Get a reference to the `feedback` collection
+                              final collection = FirebaseFirestore.instance
+                                  .collection('feedback');
+
+                              // Write the server's timestamp and the user's feedback
+                              await collection.doc().set({
+                                'timestamp': FieldValue.serverTimestamp(),
+                                'feedback': _controller.text,
+                              });
+
+                              message = 'Feedback sent successfully';
+                            } catch (e) {
+                              message = 'Error when sending feedback';
+                            }
+
+                            // Show a snackbar with the result
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(SnackBar(content: Text(message)));
+                            Navigator.pop(context);
+                          }
+                        },
                         child: Center(
                             child: Text(
                           "Submit",

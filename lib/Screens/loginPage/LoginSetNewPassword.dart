@@ -16,6 +16,7 @@ class LoginSetNew_Password extends StatefulWidget {
 
 class _LoginSetNew_PasswordState extends State<LoginSetNew_Password> {
   bool hidepassword = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

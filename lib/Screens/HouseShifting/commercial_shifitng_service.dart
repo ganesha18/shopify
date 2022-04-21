@@ -1,15 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../../common/theme_Helper.dart';
 import '../PaintingService/Painting_service.dart';
-import '../cleaningPage/Cleaning_service.dart';
-
-import '../contact.dart';
 import '../home.dart';
-import '../login.dart';
-import '../loginPage/registeration.dart';
 
 class CommercialShifitingService extends StatefulWidget {
   const CommercialShifitingService({Key? key}) : super(key: key);

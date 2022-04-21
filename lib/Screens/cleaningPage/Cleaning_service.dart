@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../vehicle/VichleHomeScreen.dart';
 import '../HouseShifting/cleaningCalenderPage.dart';
-import 'commandConfirm.dart';
+import 'calender1.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ServiceCleaning_de_menage extends StatefulWidget {
   const ServiceCleaning_de_menage({Key? key}) : super(key: key);
@@ -174,7 +176,40 @@ class _ServiceCleaning_de_menageState extends State<ServiceCleaning_de_menage> {
                               width: 20,
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                String message;
+                                try {
+                                  final collection = FirebaseFirestore.instance
+                                      .collection("users-form-data")
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.email)
+                                      .collection("items");
+                                  // Get a reference to the `feedback` collection
+                                  //final collection = FirebaseFirestore.instance.collection('Cleaning_Service');
+
+                                  // Write the server's timestamp and the user's feedback
+                                  await collection.doc().set({
+                                    'timestamp': FieldValue.serverTimestamp(),
+                                    'studio': 'Studio',
+                                    'appartement': '',
+                                    'villa': ''
+                                  });
+
+                                  message = '';
+                                } catch (e) {
+                                  message = 'Error when sending feedback';
+                                }
+
+                                // Show a snackbar with the result
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(message)));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Cleaning_service_Calender2()),
+                                );
+                              },
                               child: Image.asset(
                                 "images/studio.JPG",
                                 height: 120,
@@ -183,7 +218,40 @@ class _ServiceCleaning_de_menageState extends State<ServiceCleaning_de_menage> {
                             ),
                             TextButton(
                               //minWidth: double.infinity,
-                              onPressed: () {},
+                              onPressed: () async {
+                                String message;
+
+                                try {
+                                  // Get a reference to the `feedback` collection
+                                  final collection = FirebaseFirestore.instance
+                                      .collection("users-form-data")
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.email)
+                                      .collection("items");
+
+                                  // Write the server's timestamp and the user's feedback
+                                  await collection.doc().set({
+                                    'timestamp': FieldValue.serverTimestamp(),
+                                    'studio': '',
+                                    'appartement': 'appartement',
+                                    'villa': ''
+                                  });
+
+                                  message = '';
+                                } catch (e) {
+                                  message = 'Error when sending feedback';
+                                }
+
+                                // Show a snackbar with the result
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(message)));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Cleaning_service_Calender2()),
+                                );
+                              },
                               child: Image.asset(
                                 "images/appartement.JPG",
                                 height: 120,
@@ -192,7 +260,41 @@ class _ServiceCleaning_de_menageState extends State<ServiceCleaning_de_menage> {
                             ),
                             TextButton(
                               //minWidth: double.infinity,
-                              onPressed: () {},
+                              onPressed: () async {
+                                String message;
+
+                                try {
+                                  // Get a reference to the `feedback` collection
+                                  final collection = FirebaseFirestore.instance
+                                      .collection("users-form-data")
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.email)
+                                      .collection("items");
+
+                                  // Write the server's timestamp and the user's feedback
+                                  await collection.doc().set({
+                                    'timestamp': FieldValue.serverTimestamp(),
+                                    'studio': '',
+                                    'appartement': '',
+                                    'villa': 'villa'
+                                  });
+
+                                  message = '';
+                                } catch (e) {
+                                  message = 'Error when sending feedback';
+                                }
+
+                                // Show a snackbar with the result
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(message)));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Cleaning_service_Calender2()),
+                                );
+                              },
+
                               child: Image.asset(
                                 "images/villa.JPG",
                                 height: 120,
@@ -230,7 +332,9 @@ class _ServiceCleaning_de_menageState extends State<ServiceCleaning_de_menage> {
                                 height: 10,
                                 minWidth: 10,
                                 color: Colors.grey[90],
-                                onPressed: () {},
+                                onPressed: () {
+                                  Count--;
+                                },
                                 child: FaIcon(
                                   FontAwesomeIcons.minus,
                                   size: 20,
@@ -242,7 +346,9 @@ class _ServiceCleaning_de_menageState extends State<ServiceCleaning_de_menage> {
                                 height: 10,
                                 minWidth: 10,
                                 color: Colors.grey[90],
-                                onPressed: () {},
+                                onPressed: () {
+                                  Count++;
+                                },
                                 child: FaIcon(
                                   FontAwesomeIcons.plus,
                                   size: 20,
@@ -263,7 +369,14 @@ class _ServiceCleaning_de_menageState extends State<ServiceCleaning_de_menage> {
                               color: Color.fromRGBO(253, 107, 34, 0.8),
                             ),
                             child: FlatButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Cleaning_service_Calender2()),
+                                );
+                              },
                               label: Center(
                                 child: Text(
                                   "Proceed",

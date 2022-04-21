@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'home.dart';
+import 'notification.dart';
 
 class offerpage extends StatefulWidget {
   const offerpage({Key? key}) : super(key: key);
@@ -10,6 +12,30 @@ class offerpage extends StatefulWidget {
 }
 
 class _offerpageState extends State<offerpage> {
+  List _offers = [];
+  var _firestoreInstance = FirebaseFirestore.instance;
+
+  fetchProducts() async {
+    QuerySnapshot qn = await _firestoreInstance.collection("offerScreen").get();
+    setState(() {
+      for (int i = 0; i < qn.docs.length; i++) {
+        _offers.add({
+          "Just_For_you": qn.docs[i]["Just_For_you"],
+          "latest_offer": qn.docs[i]["latest_offer"],
+          "limited_offer": qn.docs[i]["limited_offer"],
+        });
+      }
+    });
+
+    return qn.docs;
+  }
+
+  @override
+  void initState() {
+    fetchProducts();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +94,8 @@ class _offerpageState extends State<offerpage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Home()),
+                          MaterialPageRoute(
+                              builder: (context) => notification()),
                         );
                       },
                       icon: Icon(
@@ -119,16 +146,15 @@ class _offerpageState extends State<offerpage> {
                         physics: ClampingScrollPhysics(),
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: 5,
+                        itemCount: _offers.length,
                         itemBuilder: (BuildContext context, int index) => Card(
                           child: Container(
-                            alignment: Alignment.topLeft,
-                            child: Image.asset(
-                              "images/offer.JPG",
-                              height: 100,
-                              width: 210,
-                            ),
-                          ),
+                              alignment: Alignment.topLeft,
+                              child: Image.network(
+                                _offers[index]["latest_offer"][0],
+                                height: 100,
+                                width: 210,
+                              )),
                         ),
                       ),
                     ),
@@ -156,8 +182,8 @@ class _offerpageState extends State<offerpage> {
                       alignment: Alignment.topLeft,
                       child: Padding(
                           padding: EdgeInsets.only(left: 5),
-                          child: Image.asset(
-                            "images/limitedOffer1.jpg",
+                          child: Image.network(
+                            _offers[0]["limited_offer"][0],
                             height: 190,
                             width: 700,
                           )),
@@ -188,16 +214,15 @@ class _offerpageState extends State<offerpage> {
                         physics: ClampingScrollPhysics(),
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: 5,
+                        itemCount: _offers.length,
                         itemBuilder: (BuildContext context, int index) =>
                             Container(
-                          alignment: Alignment.topLeft,
-                          child: Image.asset(
-                            "images/save.JPG",
-                            height: 170,
-                            width: 120,
-                          ),
-                        ),
+                                alignment: Alignment.topLeft,
+                                child: Image.network(
+                                  _offers[index]["Just_For_you"][0],
+                                  height: 170,
+                                  width: 120,
+                                )),
                       ),
                     ),
                   ]),

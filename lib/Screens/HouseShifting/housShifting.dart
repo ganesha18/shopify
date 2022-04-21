@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/Screens/cleaningPage/CleaningService.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../cleaningPage/Cleaning_service.dart';
-import 'cleaningCalenderPage.dart';
 import '../contact.dart';
-import '../login.dart';
+
 
 class HouseShifiting extends StatefulWidget {
   const HouseShifiting({Key? key}) : super(key: key);
@@ -286,39 +283,85 @@ class _HouseShifitingState extends State<HouseShifiting> {
                         Column(children: [
                           Row(
                             children: [
-                              FlatButton(
+
+                              TextButton(
                                 onPressed: () {},
                                 child: Image.asset(
                                   "images/bed.JPG",
                                   height: 50,
                                 ),
+                                style: ButtonStyle(
+                                  foregroundColor: MaterialStateProperty.all(Colors.transparent),
+                                  shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                    side: BorderSide(color: Colors.white)
+                                  )
+                                  ),
+                                ),
                               ),
-                              FlatButton(
+                              TextButton(
                                 onPressed: () {},
                                 child: Image.asset(
                                   "images/sofa.JPG",
                                   height: 50,
                                 ),
+                                style: ButtonStyle(
+                                  foregroundColor: MaterialStateProperty.all(Colors.transparent),
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50),
+                                          side: BorderSide(color: Colors.white)
+                                      )
+                                  ),
+                                ),
                               ),
-                              FlatButton(
+                              TextButton(
                                 onPressed: () {},
                                 child: Image.asset(
                                   "images/chair.JPG",
                                   height: 50,
                                 ),
+                                style: ButtonStyle(
+                                  foregroundColor: MaterialStateProperty.all(Colors.transparent),
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50),
+                                          side: BorderSide(color: Colors.white)
+                                      )
+                                  ),
+                                ),
                               ),
-                              FlatButton(
+                              TextButton(
                                 onPressed: () {},
                                 child: Image.asset(
                                   "images/add.JPG",
                                   height: 50,
                                 ),
+                                style: ButtonStyle(
+                                  foregroundColor: MaterialStateProperty.all(Colors.transparent),
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50),
+                                          side: BorderSide(color: Colors.white)
+                                      )
+                                  ),
+                                ),
                               ),
-                              FlatButton(
+                              TextButton(
                                 onPressed: () {},
                                 child: Image.asset(
                                   "images/ac.JPG",
                                   height: 50,
+                                ),
+                                style: ButtonStyle(
+                                  foregroundColor: MaterialStateProperty.all(Colors.transparent),
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(50),
+                                          side: BorderSide(color: Colors.white)
+                                      )
+                                  ),
                                 ),
                               ),
                             ],
@@ -516,4 +559,5 @@ class _HouseShifitingState extends State<HouseShifiting> {
       ),
     );
   }
+
 }

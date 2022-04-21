@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Screens/chatbot.dart';
 
+import 'bottomSheet1.dart';
+
 class BottomSheet1 extends StatefulWidget {
   const BottomSheet1({Key? key}) : super(key: key);
 
@@ -14,21 +16,7 @@ class _BottomSheet1State extends State<BottomSheet1> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: [
-          Center(
-            child: RaisedButton(
-              onPressed: () {
-                _bottomSheet(context);
-              },
-              color: Colors.deepOrange[400],
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                "Click me",
-                style: TextStyle(color: Colors.white, fontSize: 18.0),
-              ),
-            ),
-          )
-        ],
+        children: [_bottomSheet(context)],
       ),
     );
   }
@@ -127,7 +115,10 @@ class _BottomSheet1State extends State<BottomSheet1> {
                   child: TextButton(
                     // color: Color.fromRGBO(253, 107, 34, 0.8),
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => BottomSheet2()),
+                      );
                     },
                     child: Center(
                       child: Text(

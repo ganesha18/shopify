@@ -1,11 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../../Faq.dart';
-import '../contact.dart';
 import '../home.dart';
-import '../login.dart';
-import '../loginPage/registeration.dart';
+import 'calender.dart';
 
 class Painting_service extends StatefulWidget {
   const Painting_service({Key? key}) : super(key: key);
@@ -15,9 +14,9 @@ class Painting_service extends StatefulWidget {
 }
 
 class _Painting_serviceState extends State<Painting_service> {
+  int count = 0;
   @override
   Widget build(BuildContext context) {
-    var Count = 0;
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -162,11 +161,17 @@ class _Painting_serviceState extends State<Painting_service> {
                               itemBuilder: (BuildContext context, int index) =>
                                   Card(
                                 child: Column(children: [
-                                  Image.asset(
+                                  TextButton(onPressed: (){
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Painting_service_Calender()),
+                                    );
+                                  }, child: Image.asset(
                                     "images/painting2.JPG",
                                     height: 180,
                                     width: 280,
-                                  ),
+                                  ),),
                                 ]),
                               ),
                             ),
@@ -201,7 +206,21 @@ class _Painting_serviceState extends State<Painting_service> {
                                                   BorderRadius.circular(18.0),
                                               side: BorderSide(
                                                   color: Colors.white)))),
-                                  onPressed: () => null),
+                                  onPressed: ()  async {
+                                    final collection = FirebaseFirestore.instance
+                                        .collection("users-favourite-items")
+                                        .doc(FirebaseAuth
+                                        .instance.currentUser!.email)
+                                        .collection("paintingsservice");
+
+                                    await collection.doc().set({
+                                      'timestamp': FieldValue.serverTimestamp(),
+                                      'home1': 'home1',
+                                      'home2': '',
+                                      'home3': ''
+                                    });
+
+                                  }),
                               TextButton(
                                   child: Image.asset(
                                     "images/home2.JPG",
@@ -222,12 +241,26 @@ class _Painting_serviceState extends State<Painting_service> {
                                                   BorderRadius.circular(18.0),
                                               side: BorderSide(
                                                   color: Colors.white)))),
-                                  onPressed: () => null),
+                                  onPressed: ()  async {
+                                    final collection = FirebaseFirestore.instance
+                                        .collection("users-favourite-items")
+                                        .doc(FirebaseAuth
+                                        .instance.currentUser!.email)
+                                        .collection("paintingsservice");
+
+                                    await collection.doc().set({
+                                      'timestamp': FieldValue.serverTimestamp(),
+                                      'home1': '',
+                                      'home2': 'home2',
+                                      'home3': ''
+                                    });
+
+                                  }),
                               TextButton(
                                   child: Image.asset(
                                     "images/home3.JPG",
                                     height: 130,
-                                    width: 100,
+                                    width: 130,
                                   ),
                                   style: ButtonStyle(
                                       padding:
@@ -243,7 +276,20 @@ class _Painting_serviceState extends State<Painting_service> {
                                                   BorderRadius.circular(18.0),
                                               side: BorderSide(
                                                   color: Colors.white)))),
-                                  onPressed: () => null),
+                                  onPressed: () async {
+                                    final collection = FirebaseFirestore.instance
+                                        .collection("users-favourite-items")
+                                        .doc(FirebaseAuth
+                                        .instance.currentUser!.email)
+                                        .collection("paintingsservice");
+
+                                    await collection.doc().set({
+                                      'timestamp': FieldValue.serverTimestamp(),
+                                      'home1': '',
+                                      'home2': '',
+                                      'home3': 'home2'
+                                    });
+                                  }),
                             ],
                           ),
                         ),
@@ -289,19 +335,27 @@ class _Painting_serviceState extends State<Painting_service> {
                                 height: 10,
                                 minWidth: 10,
                                 color: Colors.grey[90],
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() {
+                                    count--;
+                                  });
+                                },
                                 child: FaIcon(
                                   FontAwesomeIcons.minus,
                                   size: 20,
                                   color: Colors.black,
                                 ),
                               ),
-                              Text("$Count", style: TextStyle(fontSize: 18)),
+                              Text("$count", style: TextStyle(fontSize: 18)),
                               FlatButton(
                                 height: 10,
                                 minWidth: 10,
                                 color: Colors.grey[90],
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() {
+                                    count++;
+                                  });
+                                },
                                 child: FaIcon(
                                   FontAwesomeIcons.plus,
                                   size: 20,

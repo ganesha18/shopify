@@ -9,8 +9,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String phoneNumber, verificationId;
-  String otp, authStatus = "";
+  late String phoneNumber, verificationId;
+  late String otp, authStatus = "";
 
   Future<void> verifyPhoneNumber(BuildContext context) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
@@ -21,13 +21,13 @@ class _LoginPageState extends State<LoginPage> {
           authStatus = "Your account is successfully verified";
         });
       },
-      verificationFailed: (AuthException authException) {
+      verificationFailed: (FirebaseAuthException e) {
         setState(() {
           authStatus = "Authentication failed";
         });
       },
-      codeSent: (String verId, [int forceCodeResent]) {
-        verificationId = verId;
+      codeSent: (String vID, int? resendToken) {
+        verificationId = vID;
         setState(() {
           authStatus = "OTP has been successfully send";
         });
@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> signIn(String otp) async {
     await FirebaseAuth.instance
-        .signInWithCredential(PhoneAuthProvider.getCredential(
+        .signInWithCredential(PhoneAuthProvider.credential(
       verificationId: verificationId,
       smsCode: otp,
     ));
@@ -176,4 +176,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-

@@ -1,5 +1,5 @@
-import 'package:country_code_picker/country_code.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +13,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _controller = TextEditingController();
   String dialCodeDigits = "+00";
+  FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,8 +110,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   // maxLength: 12,
-                  //   keyboardType: TextInputType.number,
-                  //   controller: _controller,
+                  keyboardType: TextInputType.number,
+                  controller: _controller,
                 ),
               ),
               SizedBox(

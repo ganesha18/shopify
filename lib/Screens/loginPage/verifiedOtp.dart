@@ -2,12 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_project/Screens/signInPage.dart';
-import 'package:pinput/pin_put/pin_put.dart';
-
+import 'package:pinput/pinput.dart';
 import '../home.dart';
-import '../login.dart';
 import '../otp.dart';
+import '../signInPage.dart';
 import 'emaillogin.dart';
 import 'espace_Enterprise.dart';
 
@@ -27,6 +25,7 @@ class _VerifiedOTPSCREENState extends State<VerifiedOTPSCREEN> {
   String? verificationCode;
   final TextEditingController _pinOTPCodeController = TextEditingController();
   final FocusNode _pinOTPCodeFoucus = FocusNode();
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   final BoxDecoration pinOTPCodeController = BoxDecoration(
     color: Colors.white,
@@ -46,7 +45,7 @@ class _VerifiedOTPSCREENState extends State<VerifiedOTPSCREEN> {
 
   verifyPhoneNumber() async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: "${widget.codeDigits + widget.phone}",
+      phoneNumber: "${widget.codeDigits + widget.phone}".toString(),
       verificationCompleted: (PhoneAuthCredential credential) async {
         await FirebaseAuth.instance
             .signInWithCredential(credential)
@@ -63,10 +62,10 @@ class _VerifiedOTPSCREENState extends State<VerifiedOTPSCREEN> {
       verificationFailed: (FirebaseAuthException e) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(e.message.toString()),
-          duration: Duration(seconds: 3),
+          duration: Duration(seconds: 10),
         ));
       },
-      codeSent: (String vID, int? resendToken) {
+      codeSent: (String vID, int? resendToken) async {
         setState(() {
           verificationCode = vID;
         });
@@ -97,8 +96,8 @@ class _VerifiedOTPSCREENState extends State<VerifiedOTPSCREEN> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => Enspace_Entreprise(
-                            codeDigits: '00',
-                            phone: '3313571291',
+                            phone: _controller.text,
+                            codeDigits: dialCodeDigits,
                           )),
                 );
               },
@@ -172,22 +171,12 @@ class _VerifiedOTPSCREENState extends State<VerifiedOTPSCREEN> {
               top: 30,
               bottom: 30,
             ),
-            child: PinPut(
-              fieldsCount: 4,
-              textStyle: TextStyle(
-                fontSize: 27.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-              eachFieldHeight: 70.0,
-              eachFieldWidth: 50.0,
+            child: Pinput(
+              length: 4,
               focusNode: _pinOTPCodeFoucus,
               controller: _pinOTPCodeController,
-              submittedFieldDecoration: pinOTPCodeController,
-              selectedFieldDecoration: pinOTPCodeController,
-              followingFieldDecoration: pinOTPCodeController,
               pinAnimationType: PinAnimationType.fade,
-              onSubmit: (pin) async {
+              onSubmitted: (pin) async {
                 try {
                   await FirebaseAuth.instance
                       .signInWithCredential(PhoneAuthProvider.credential(
@@ -206,7 +195,7 @@ class _VerifiedOTPSCREENState extends State<VerifiedOTPSCREEN> {
                     content: Text(
                       'invalid OTP',
                       style: TextStyle(
-                        color: Colors.deepOrange,
+                        color: Color.fromRGBO(253, 107, 34, 0.7),
                         fontFamily: 'DM_Sans',
                       ),
                     ),
@@ -226,7 +215,7 @@ class _VerifiedOTPSCREENState extends State<VerifiedOTPSCREEN> {
               ),
               onPressed: () {
                 Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (C) => EmailLogin()));
+                    .push(MaterialPageRoute(builder: (C) => GetStart()));
               },
               color: Theme.of(context).primaryColor,
               textColor: Colors.white,

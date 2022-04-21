@@ -1,13 +1,49 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.flutter_project">
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="mailto" />
+        </intent>
+    </queries>
+
    <application
 
         android:label="flutter_project"
         android:name="${applicationName}"
+        tools:replace="android:label"
         android:icon="@mipmap/ic_launcher">
+       <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+       <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+
+       <activity android:name="com.facebook.FacebookActivity"
+           android:configChanges=
+               "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+           android:label="flutter_project "/>
+       <activity
+           android:name="com.facebook.CustomTabActivity"
+           android:exported="true">
+
+
+           <intent-filter>
+               <action android:name="android.intent.action.VIEW" />
+               <category android:name="android.intent.category.DEFAULT" />
+               <category android:name="android.intent.category.BROWSABLE" />
+               <data android:scheme="@string/fb_login_protocol_scheme" />
+           </intent-filter>
+       </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -28,6 +64,10 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <intent-filter>
+                <action android:name="FLUTTER_NOTIFICATION_CLICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
@@ -35,8 +75,23 @@
             android:name="flutterEmbedding"
             android:value="2" />
        <!-- TODO: Add your Google Maps API key here -->
+
        <meta-data android:name="com.google.android.geo.API_KEY"
-           android:value="AIzaSyBHY65V8nNpKL_GghvCVllz1kn2fcYWV54"/>
+           android:value="AIzaSyCuafUB4tNmUwUfnZUF_bB-wGuOVa-muNg"/>
+
+       <activity
+           android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
+           android:exported="true"
+           android:launchMode="singleTask">
+           <intent-filter>
+               <action android:name="android.intent.action.VIEW" />
+               <category android:name="android.intent.category.DEFAULT" />
+               <category android:name="android.intent.category.BROWSABLE" />
+               <data android:scheme="com.example.flutterbraintreeexample.braintree" />
+           </intent-filter>
+       </activity>
+
+       <meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true"/>
 
    </application>
 </manifest>

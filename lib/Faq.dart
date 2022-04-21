@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'Screens/cleaningPage/Cleaning_service.dart';
 import 'Screens/cleaningPage/calender1.dart';
+import 'Screens/home.dart';
+import 'Screens/notification.dart';
 
 class FAQPage extends StatefulWidget {
   @override
@@ -9,6 +11,13 @@ class FAQPage extends StatefulWidget {
 }
 
 class _FAQPageState extends State<FAQPage> {
+  bool isVisible = false;
+  bool isVisible1 = false;
+  bool isVisibe2 = false;
+  bool isVisible3 = false;
+  bool isVisible4 = false;
+  bool isVisible5 = false;
+  bool isVisible6 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,8 +90,7 @@ class _FAQPageState extends State<FAQPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => Cleaning_service_Calender2()),
+                      MaterialPageRoute(builder: (context) => notification()),
                     );
                   },
                   icon: Icon(
@@ -144,7 +152,11 @@ class _FAQPageState extends State<FAQPage> {
                 width: 98,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isVisible = !isVisible;
+                  });
+                },
                 child: Icon(
                   Icons.keyboard_arrow_down_sharp,
                   color: Colors.black,
@@ -152,6 +164,13 @@ class _FAQPageState extends State<FAQPage> {
               )
             ],
           ),
+          SizedBox(
+            height: 5,
+          ),
+          if (isVisible)
+            (Text(
+              "How to contact with riders?",
+            )),
           SizedBox(
             height: 5,
           ),
@@ -167,7 +186,11 @@ class _FAQPageState extends State<FAQPage> {
                 width: 40,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isVisible1 = !isVisible1;
+                  });
+                },
                 child: Icon(
                   Icons.keyboard_arrow_down_sharp,
                   color: Colors.black,
@@ -175,6 +198,10 @@ class _FAQPageState extends State<FAQPage> {
               )
             ],
           ),
+          if (isVisible1)
+            (Text(
+              "How to contact with riders?",
+            )),
           SizedBox(
             height: 5,
           ),
@@ -190,7 +217,11 @@ class _FAQPageState extends State<FAQPage> {
                 width: 80,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isVisible3 = !isVisible3;
+                  });
+                },
                 child: Icon(
                   Icons.keyboard_arrow_down_sharp,
                   color: Colors.black,
@@ -198,6 +229,10 @@ class _FAQPageState extends State<FAQPage> {
               )
             ],
           ),
+          if (isVisible3)
+            (Text(
+              "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+            )),
           SizedBox(
             height: 10,
           ),
@@ -221,7 +256,11 @@ class _FAQPageState extends State<FAQPage> {
                 width: 48,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isVisible4 = !isVisible4;
+                  });
+                },
                 child: Icon(
                   Icons.keyboard_arrow_down_sharp,
                   color: Colors.black,
@@ -229,6 +268,13 @@ class _FAQPageState extends State<FAQPage> {
               )
             ],
           ),
+          SizedBox(
+            height: 5,
+          ),
+          if (isVisible4)
+            (Text(
+              "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+            )),
           SizedBox(
             height: 5,
           ),
@@ -244,7 +290,11 @@ class _FAQPageState extends State<FAQPage> {
                 width: 18,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isVisible5 = !isVisible5;
+                  });
+                },
                 child: Icon(
                   Icons.keyboard_arrow_up_sharp,
                   color: Colors.black,
@@ -252,10 +302,11 @@ class _FAQPageState extends State<FAQPage> {
               )
             ],
           ),
-          Text(
-            "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-            style: TextStyle(color: Colors.grey, fontSize: 18),
-          ),
+          if (isVisible5)
+            (Text(
+              "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+              style: TextStyle(color: Colors.grey, fontSize: 18),
+            )),
           SizedBox(
             height: 5,
           ),
@@ -271,7 +322,11 @@ class _FAQPageState extends State<FAQPage> {
                 width: 87,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isVisible6 = !isVisible6;
+                  });
+                },
                 child: Icon(
                   Icons.keyboard_arrow_down_sharp,
                   color: Colors.black,
@@ -279,6 +334,14 @@ class _FAQPageState extends State<FAQPage> {
               )
             ],
           ),
+          SizedBox(
+            height: 5,
+          ),
+          if (isVisible6)
+            (Text(
+              "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+              style: TextStyle(color: Colors.grey, fontSize: 18),
+            )),
           SizedBox(
             height: 30,
           ),

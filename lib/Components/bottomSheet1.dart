@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Screens/chatbot.dart';
 
+import '../Screens/HouseShifting/NewCard.dart';
+
 class BottomSheet2 extends StatefulWidget {
   const BottomSheet2({Key? key}) : super(key: key);
 
@@ -15,19 +17,7 @@ class _BottomSheet2State extends State<BottomSheet2> {
     return Scaffold(
       body: Column(
         children: [
-          Center(
-            child: RaisedButton(
-              onPressed: () {
-                _bottomSheet(context);
-              },
-              color: Color.fromRGBO(253, 107, 34, 0.8),
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                "Click me",
-                style: TextStyle(color: Colors.white, fontSize: 18.0),
-              ),
-            ),
-          )
+          _bottomSheet(context),
         ],
       ),
     );
@@ -103,7 +93,8 @@ class _BottomSheet2State extends State<BottomSheet2> {
                   child: RaisedButton(
                     color: Color.fromRGBO(253, 107, 34, 0.8),
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => NewCard()));
                     },
                     child: Center(
                       child: Text(
@@ -127,7 +118,8 @@ class _BottomSheet2State extends State<BottomSheet2> {
                   child: RaisedButton(
                     color: Colors.grey,
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => NewCard()));
                     },
                     child: Center(
                       child: Text(

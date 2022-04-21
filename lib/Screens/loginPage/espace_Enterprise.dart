@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_project/Screens/loginPage/setNewPassword.dart';
 import 'package:flutter_project/Screens/signInPage.dart';
-import 'package:pinput/pin_put/pin_put.dart';
+import 'package:pinput/pinput.dart';
 
 import '../home.dart';
 import '../login.dart';
@@ -154,49 +154,7 @@ class _Enspace_EntrepriseState extends State<Enspace_Entreprise> {
                 top: 30,
                 bottom: 30,
               ),
-              child: PinPut(
-                fieldsCount: 4,
-                textStyle: TextStyle(
-                  fontSize: 27.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-                eachFieldHeight: 70.0,
-                eachFieldWidth: 50.0,
-                focusNode: _pinOTPCodeFoucus,
-                controller: _pinOTPCodeController,
-                submittedFieldDecoration: pinOTPCodeController,
-                selectedFieldDecoration: pinOTPCodeController,
-                followingFieldDecoration: pinOTPCodeController,
-                pinAnimationType: PinAnimationType.fade,
-                onSubmit: (pin) async {
-                  try {
-                    await FirebaseAuth.instance
-                        .signInWithCredential(PhoneAuthProvider.credential(
-                            verificationId: verificationCode!, smsCode: pin))
-                        .then((value) async {
-                      if (value.user != null) {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(builder: (context) => Home()),
-                            (route) => false);
-                      }
-                    });
-                  } catch (e) {
-                    FocusScope.of(context).unfocus();
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                        'invalid OTP',
-                        style: TextStyle(
-                          color: Colors.deepOrange,
-                          fontFamily: 'DM_Sans',
-                        ),
-                      ),
-                      duration: Duration(seconds: 3),
-                    ));
-                  }
-                },
-              ),
+              child: Pinput(),
             ),
             Container(
               height: 60,

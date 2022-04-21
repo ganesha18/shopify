@@ -1,10 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'HouseShifting/Service_de_menege.dart';
-import 'HouseShifting/commercial_shifitng_service.dart';
-import 'contact.dart';
-import 'login.dart';
+import 'PaintingService/Painting_service.dart';
+import 'cleaningPage/Cleaning_service.dart';
+import 'notification.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,6 +17,57 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  late FirebaseMessaging messageing;
+
+  List _products = [];
+  var _firestoreInstance = FirebaseFirestore.instance;
+
+  fetchProducts() async {
+    QuerySnapshot qn =
+        await _firestoreInstance.collection("HOME_PAGE_AID").get();
+    setState(() {
+      for (int i = 0; i < qn.docs.length; i++) {
+        _products.add({
+          "img": qn.docs[i]["img"],
+        });
+      }
+    });
+
+    return qn.docs;
+  }
+
+  @override
+  void initState() {
+    //TODO: implement activate
+    fetchProducts();
+    super.initState();
+    messageing = FirebaseMessaging.instance;
+    messageing.getToken().then((value) => {print(value)});
+    FirebaseMessaging.onMessage.listen((RemoteMessage event) {
+      print("message recieved");
+      print(event.notification!.body);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Notification"),
+              content: Text(event.notification!.body!),
+              actions: [
+                TextButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage event) {
+      print("Message Click! ");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,13 +91,7 @@ class _HomeState extends State<Home> {
                     width: 90,
                     child: IconButton(
                       // color: Colors.white,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Service_de_menage()),
-                        );
-                      },
+                      onPressed: () {},
                       icon: Icon(
                         Icons.border_all_rounded,
                         color: Colors.white,
@@ -58,11 +106,11 @@ class _HomeState extends State<Home> {
                     width: 70,
                     child: IconButton(
                       // color: Colors.white,
-                      onPressed: () {
+                      onPressed: () async {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CommercialShifitingService()),
+                              builder: (context) => notification()),
                         );
                       },
                       icon: Icon(
@@ -135,26 +183,44 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: 20,
+                              width: 5,
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ServiceCleaning_de_menage()),
+                                );
+                              },
                               child: Image.asset(
                                 "images/menage1.jpg",
-
                               ),
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Service_de_menage()),
+                                );
+                              },
                               child: Image.asset(
                                 "images/rep1.jpg",
                               ),
                             ),
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            Painting_service()));
+                              },
                               child: Image.asset(
                                 "images/revotion1.jpg",
-
                               ),
                             ),
                           ],
@@ -176,84 +242,97 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
-                        Padding(padding: EdgeInsets.all(10),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(width: 10,),
-                            TextButton(
-                                child: Center(
-                                  child: Text(
-                                    "trendences",
-                                    style: TextStyle(color: Colors.black),
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 10,
+                              ),
+                              TextButton(
+                                  child: Center(
+                                    child: Text(
+                                      "trendences",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
                                   ),
-                                ),
-                                style: ButtonStyle(
-                                    backgroundColor:  MaterialStateProperty.all<Color>(
-                                      Color.fromRGBO(253, 107, 34, 0.8),),
-                                    padding:
-                                        MaterialStateProperty.all<EdgeInsets>(
-                                            EdgeInsets.all(15)),
-                                    foregroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                          Color.fromRGBO(253, 107, 34, 0.8),),
-                                    shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            side: BorderSide(
-                                              color:  Color.fromRGBO(253, 107, 34, 0.8),)))),
-                                onPressed: () => null),
-
-                            SizedBox(width: 5,), TextButton(
-                                child: Center(
-                                  child: Text(
-                                    "Promotions",
-                                    style: TextStyle(color: Colors.black),
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                        Color.fromRGBO(253, 107, 34, 0.8),
+                                      ),
+                                      padding:
+                                          MaterialStateProperty.all<EdgeInsets>(
+                                              EdgeInsets.all(15)),
+                                      foregroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                        Color.fromRGBO(253, 107, 34, 0.8),
+                                      ),
+                                      shape: MaterialStateProperty.all<
+                                              RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              side: BorderSide(
+                                                color: Color.fromRGBO(
+                                                    253, 107, 34, 0.8),
+                                              )))),
+                                  onPressed: () => null),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              TextButton(
+                                  child: Center(
+                                    child: Text(
+                                      "Promotions",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
                                   ),
-                                ),
-                                style: ButtonStyle(
-                                    padding:
-                                        MaterialStateProperty.all<EdgeInsets>(
-                                            EdgeInsets.all(15)),
-                                    foregroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.white),
-                                    shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            side: BorderSide(
-                                                color: Colors.grey)))),
-                                onPressed: () => null),
-                            SizedBox(width: 5,),
-                            TextButton(
-                                child: Center(
-                                  child: Text(
-                                    "Products",
-                                    style: TextStyle(color: Colors.black),
+                                  style: ButtonStyle(
+                                      padding:
+                                          MaterialStateProperty.all<EdgeInsets>(
+                                              EdgeInsets.all(15)),
+                                      foregroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.white),
+                                      shape: MaterialStateProperty.all<
+                                              RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              side: BorderSide(
+                                                  color: Colors.grey)))),
+                                  onPressed: () => null),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              TextButton(
+                                  child: Center(
+                                    child: Text(
+                                      "Products",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
                                   ),
-                                ),
-                                style: ButtonStyle(
-                                    padding:
-                                        MaterialStateProperty.all<EdgeInsets>(
-                                            EdgeInsets.all(15)),
-                                    foregroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.white),
-                                    shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            side: BorderSide(
-                                                color: Colors.grey)))),
-                                onPressed: () => null),
-                          ],
-                        ),),
+                                  style: ButtonStyle(
+                                      padding:
+                                          MaterialStateProperty.all<EdgeInsets>(
+                                              EdgeInsets.all(15)),
+                                      foregroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.white),
+                                      shape: MaterialStateProperty.all<
+                                              RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              side: BorderSide(
+                                                  color: Colors.grey)))),
+                                  onPressed: () => null),
+                            ],
+                          ),
+                        ),
                         SizedBox(
                           height: 10,
                         ),
@@ -264,15 +343,15 @@ class _HomeState extends State<Home> {
                             physics: ClampingScrollPhysics(),
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
-                            itemCount: 5,
+                            itemCount: _products.length,
                             itemBuilder: (BuildContext context, int index) =>
                                 Card(
                               child: Column(children: [
-                                Image.asset(
-                                  "images/limitedOffer1.jpg",
+                                Image.network(
+                                  _products[index]["img"][0],
                                   height: 150,
                                   width: 250,
-                                ),
+                                )
                               ]),
                             ),
                           ),

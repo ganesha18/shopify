@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/models/content_model.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'home.dart';
 import 'login.dart';
 import 'loginPage/login.dart';
 

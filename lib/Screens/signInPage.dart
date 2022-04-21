@@ -4,11 +4,10 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/common/theme_Helper.dart';
-import '../models/Register_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'home.dart';
-import 'loginPage/loginForgetPassword.dart';
-
-import 'otp.dart';
+import 'login.dart';
+import 'loginPage/login.dart';
 
 class GetStart extends StatefulWidget {
   @override
@@ -18,7 +17,6 @@ class GetStart extends StatefulWidget {
 }
 
 class _GetStartState extends State<GetStart> {
-  late DatabaseReference _dbref;
   final _auth = FirebaseAuth.instance;
   late final name = new TextEditingController();
   final email = new TextEditingController();
@@ -27,16 +25,10 @@ class _GetStartState extends State<GetStart> {
   final Address = new TextEditingController();
   final Post = new TextEditingController();
   final villa = new TextEditingController();
-
+  String? errorMessage;
   final _formKey = GlobalKey<FormState>();
   bool checkedValue = false;
   bool checkboxValue = false;
-  String? errorMessage;
-  @override
-  void initState() {
-    super.initState();
-    _dbref = FirebaseDatabase.instance.reference();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +44,7 @@ class _GetStartState extends State<GetStart> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => EmailForgetPassword()),
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
                 );
               },
               icon: Icon(
@@ -352,6 +343,7 @@ class _GetStartState extends State<GetStart> {
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           signUp(email.text, Password.text);
+                          sendUserDataToDB();
                         }
                       },
                       color: Color.fromRGBO(253, 107, 34, 0.8),
@@ -371,7 +363,10 @@ class _GetStartState extends State<GetStart> {
               ),
               Center(
                   child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => login()));
+                      },
                       child: Text(
                         "Connectez-vous",
                         style: TextStyle(
@@ -390,9 +385,9 @@ class _GetStartState extends State<GetStart> {
       try {
         await _auth
             .createUserWithEmailAndPassword(email: email, password: password)
-            .then((value) => {postDetailsToFirestore()})
+            .then((value) => {sendUserDataToDB()})
             .catchError((e) {
-          //  Fluttertoast.showToast(msg: e!.message);
+          Fluttertoast.showToast(msg: e!.message);
         });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
@@ -423,29 +418,39 @@ class _GetStartState extends State<GetStart> {
     }
   }
 
+  sendUserDataToDB() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    var currentUser = _auth.currentUser;
+
+    CollectionReference _collectionRef =
+        FirebaseFirestore.instance.collection("users-form-data");
+    return _collectionRef
+        .doc(currentUser!.email)
+        .set({
+          'name': name.text,
+          'email': email.text,
+          'post': Post.text,
+          'address': Address.text,
+          'villa': villa.text,
+        })
+        .then((value) =>
+            Navigator.push(context, MaterialPageRoute(builder: (_) => login())))
+        .catchError((error) => print("something is wrong. $error"));
+  }
+
   postDetailsToFirestore() async {
-    // calling our firestore
-    // calling our user model
-    // sedning these values
-
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    final collection = FirebaseFirestore.instance.collection('users');
     User? user = _auth.currentUser;
-
-    Register_model userModel = Register_model();
-
-    // writing all the values
-    userModel.email = user!.email;
-    userModel.uid = user.uid;
-    userModel.name = name.text;
-    userModel.address = Address.text;
-    userModel.Post = Post.text;
-    userModel.villa = villa.text;
-
-    await firebaseFirestore
-        .collection("users")
-        .doc(user.uid)
-        .set(userModel.toMap());
-    //Fluttertoast.showToast(msg: "Account created successfully :) ");
+    // Write the server's timestamp and the user's feedback
+    await collection.doc().set({
+      'name': name.text,
+      'email': email.text,
+      'post': Post.text,
+      'address': Address.text,
+      'villa': villa.text,
+      'uid': user
+    });
+    Fluttertoast.showToast(msg: "Account created successfully :) ");
 
     Navigator.pushAndRemoveUntil((context),
         MaterialPageRoute(builder: (context) => Home()), (route) => false);

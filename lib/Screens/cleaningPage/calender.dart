@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import '../../GOOGLE_MAP/Location_tracking.dart';
 import '../contact.dart';
 
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
@@ -418,7 +419,15 @@ class _Cleaning_service_Calender1State
 
                             ),
                             child: FlatButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          MapView()),
+                                );
+                              },
                               label: Center(
                                 child: Text(
                                   "Continuer",

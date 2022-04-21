@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/common/theme_Helper.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../home.dart';
 import '../signInPage.dart';
-import 'LoginSetNewPassword.dart';
+import 'forgetPasswordScreen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class login extends StatefulWidget {
   const login({Key? key}) : super(key: key);
@@ -15,6 +17,7 @@ class login extends StatefulWidget {
 
 class _loginState extends State<login> {
   bool hidepassword = true;
+  String? errorMessage;
   final _formKey = GlobalKey<FormState>();
   bool checkedValue = false;
   bool checkboxValue = false;
@@ -24,9 +27,6 @@ class _loginState extends State<login> {
 
   // firebase
   final _auth = FirebaseAuth.instance;
-
-  // string for displaying the error Message
-  String? errorMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +50,7 @@ class _loginState extends State<login> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => LoginSetNew_Password()),
+                      MaterialPageRoute(builder: (context) => GetStart()),
                     );
                   },
                   icon: Icon(
@@ -89,6 +88,7 @@ class _loginState extends State<login> {
             ),
             Container(
               child: TextFormField(
+                autofocus: false,
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
@@ -117,8 +117,8 @@ class _loginState extends State<login> {
             Container(
               child: TextFormField(
                 obscureText: hidepassword,
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.done,
+                autofocus: false,
+                controller: passwordController,
                 decoration: InputDecoration(
                   fillColor: Colors.white,
                   filled: true,
@@ -190,10 +190,19 @@ class _loginState extends State<login> {
                         SizedBox(
                           width: 30,
                         ),
-                        Text(
-                          "Mot de passe oublie?",
-                          style: TextStyle(
-                            color: Color.fromRGBO(253, 107, 34, 0.8),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ForgotPasswordPage()),
+                            );
+                          },
+                          child: Text(
+                            "Mot de passe oublie?",
+                            style: TextStyle(
+                              color: Color.fromRGBO(253, 107, 34, 0.8),
+                            ),
                           ),
                         ),
                       ],
@@ -234,7 +243,11 @@ class _loginState extends State<login> {
                     fontFamily: 'DM_Sans',
                   ),
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Home()),
+                  );
                   signIn(emailController.text, passwordController.text);
                 },
                 color: Color.fromRGBO(253, 107, 34, 0.8),
@@ -266,7 +279,9 @@ class _loginState extends State<login> {
                       color: Colors.white,
                     ),
                     child: FlatButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        signInWithGoogle();
+                      },
                       label: Center(
                         child: Text(
                           "        Continue with Google",
@@ -301,14 +316,19 @@ class _loginState extends State<login> {
                       width: 5,
                     ),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => GetStart()),
+                          );
+                        },
                         child: Text(
                           'Sinscrire',
                           style: TextStyle(
                               color: Color.fromRGBO(253, 107, 34, 0.8),
                               fontSize: 14),
                         ))
-                  ])
+                  ]),
                 ],
               ),
             ),
@@ -326,42 +346,58 @@ class _loginState extends State<login> {
 
   // login function
   void signIn(String email, String password) async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        await _auth
-            .signInWithEmailAndPassword(email: email, password: password)
-            .then((uid) => {
-                  //    Fluttertoast.showToast(msg: "Login Successful"),
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => GetStart())),
-                });
-      } on FirebaseAuthException catch (error) {
-        switch (error.code) {
-          case "invalid-email":
-            errorMessage = "Your email address appears to be malformed.";
+    try {
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((value) => {
+                Fluttertoast.showToast(msg: "Login Successful"),
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => Home())),
+              });
+    } on FirebaseAuthException catch (error) {
+      switch (error.code) {
+        case "invalid-email":
+          errorMessage = "Your email address appears to be malformed.";
 
-            break;
-          case "wrong-password":
-            errorMessage = "Your password is wrong.";
-            break;
-          case "user-not-found":
-            errorMessage = "User with this email doesn't exist.";
-            break;
-          case "user-disabled":
-            errorMessage = "User with this email has been disabled.";
-            break;
-          case "too-many-requests":
-            errorMessage = "Too many requests";
-            break;
-          case "operation-not-allowed":
-            errorMessage = "Signing in with Email and Password is not enabled.";
-            break;
-          default:
-            errorMessage = "An undefined Error happened.";
-        }
-        //   Fluttertoast.showToast(msg: errorMessage!);
-        print(error.code);
+          break;
+        case "wrong-password":
+          errorMessage = "Your password is wrong.";
+          break;
+        case "user-not-found":
+          errorMessage = "User with this email doesn't exist.";
+          break;
+        case "user-disabled":
+          errorMessage = "User with this email has been disabled.";
+          break;
+        case "too-many-requests":
+          errorMessage = "Too many requests";
+          break;
+        case "operation-not-allowed":
+          errorMessage = "Signing in with Email and Password is not enabled.";
+          break;
+        default:
+          errorMessage = "An undefined Error happened.";
       }
+      Fluttertoast.showToast(msg: errorMessage!);
+      print(error.code);
     }
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }

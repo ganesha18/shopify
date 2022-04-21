@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import '../GOOGLE_MAP/Location_tracking.dart';
+import '../common/SendSms.dart';
 import 'Editing_Screen.dart';
-import 'chatbot.dart';
-import 'loginPage/emaillogin.dart';
-import 'loginPage/login1.dart';
+import 'HouseShifting/NewCard.dart';
+import 'Parrainage.dart';
+import 'addASocialAccount.dart';
+import 'contact.dart';
+import 'home.dart';
+import 'notification.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -38,7 +42,7 @@ class _AccountPageState extends State<AccountPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ChatPage()),
+                      MaterialPageRoute(builder: (context) => SendSms()),
                     );
                   },
                   icon: Icon(
@@ -72,8 +76,7 @@ class _AccountPageState extends State<AccountPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => EditProfilePage()),
+                      MaterialPageRoute(builder: (context) => notification()),
                     );
                   },
                   icon: Icon(
@@ -189,7 +192,13 @@ class _AccountPageState extends State<AccountPage> {
                         //color: Colors.deepOrange,
                       ),
                       child: FlatButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditProfilePage()),
+                          );
+                        },
                         label: Text(
                           "Modifies   ",
                           style: TextStyle(color: Colors.black),
@@ -224,17 +233,38 @@ class _AccountPageState extends State<AccountPage> {
                         Icons.all_inbox,
                         color: Colors.grey,
                       ),
-                      buildAccountOptionRow(
-                          context,
-                          "Modalites de paiement           ",
-                          "Ajoutez vos de credit et de debit    "),
+                      Column(children: [
+                        Text(
+                          "Modalites de paiement",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          " Ajoutez vos de credit et de debit",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ]),
                       SizedBox(
-                        width: 81,
+                        width: 95,
                       ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.grey,
-                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NewCard()),
+                            );
+                          }),
                     ]),
                     SizedBox(
                       height: 10,
@@ -244,17 +274,38 @@ class _AccountPageState extends State<AccountPage> {
                         Icons.add_location,
                         color: Colors.grey,
                       ),
-                      buildAccountOptionRow(
-                          context,
-                          "Locations                                      ",
-                          "Ajoutez vos lieux de residence          "),
+                      Column(children: [
+                        Text(
+                          " Locations                 ",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "Ajoutez vos lieux de residence",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ]),
                       SizedBox(
-                        width: 71,
+                        width: 110,
                       ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.grey,
-                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MapView()),
+                            );
+                          }),
                     ]),
                     SizedBox(
                       height: 10,
@@ -264,17 +315,38 @@ class _AccountPageState extends State<AccountPage> {
                         Icons.camera,
                         color: Colors.grey,
                       ),
-                      buildAccountOptionRow(
-                          context,
-                          "Ajour un compte social                             ",
-                          "Ajouter Facebook,instagram,Twitter etc.           "),
+                      Column(children: [
+                        Text(
+                          "Ajour un compte social        ",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "Ajouter Facebook,instagram,Twitter etc.",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ]),
                       SizedBox(
-                        width: 20,
+                        width: 50,
                       ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.grey,
-                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AddSocialAccount()),
+                            );
+                          }),
                     ]),
                     SizedBox(
                       height: 10,
@@ -284,23 +356,45 @@ class _AccountPageState extends State<AccountPage> {
                         Icons.forward,
                         color: Colors.grey,
                       ),
-                      buildAccountOptionRow(
-                          context,
-                          "Parrainge                                  ",
-                          "Reciever 30DH                                 "),
+                      Column(children: [
+                        Text(
+                          " Parrainge  ",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "   Reciever 30DH          ",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ]),
                       SizedBox(
-                        width: 85,
+                        width: 180,
                       ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.grey,
-                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Paraghranage()),
+                            );
+                          }),
                     ]),
                     SizedBox(
                       height: 10,
                     ),
                     Text(
-                      "Notification                                                     ",
+                      "Notification                                                       ",
                       style: TextStyle(
                         color: Color.fromRGBO(253, 107, 34, 0.8),
                         fontWeight: FontWeight.bold,
@@ -372,17 +466,38 @@ class _AccountPageState extends State<AccountPage> {
                         Icons.phone,
                         color: Colors.grey,
                       ),
-                      buildAccountOptionRow(
-                          context,
-                          "Contactez-nous                            ",
-                          "Ajoutez vos de credit et de debit        "),
+                      Column(children: [
+                        Text(
+                          "Contactez-nous                  ",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "Ajoutez vos de credit et de debit",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ]),
                       SizedBox(
-                        width: 66,
+                        width: 85,
                       ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.grey,
-                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Contact()),
+                            );
+                          }),
                     ]),
                     SizedBox(
                       height: 10,
@@ -392,17 +507,38 @@ class _AccountPageState extends State<AccountPage> {
                         Icons.add_to_home_screen_rounded,
                         color: Colors.grey,
                       ),
-                      buildAccountOptionRow(
-                          context,
-                          "Deconnexion                                  ",
-                          "Ajoutez vos de credit et de debit         "),
+                      Column(children: [
+                        Text(
+                          "Deconnexion           ",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "Ajoutez vos de credit et de debit",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ]),
                       SizedBox(
-                        width: 62,
+                        width: 95,
                       ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.grey,
-                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Contact()),
+                            );
+                          }),
                     ]),
                     SizedBox(
                       height: 10,
@@ -412,17 +548,38 @@ class _AccountPageState extends State<AccountPage> {
                         Icons.arrow_forward_ios,
                         color: Colors.grey,
                       ),
-                      buildAccountOptionRow(
-                          context,
-                          "Social                                               ",
-                          "Ajoutez vos de credit et de debit          "),
+                      Column(children: [
+                        Text(
+                          "Social                           ",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "Ajoutez vos de credit et de debit",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ]),
                       SizedBox(
-                        width: 58,
+                        width: 95,
                       ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.grey,
-                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Contact()),
+                            );
+                          }),
                     ]),
                     SizedBox(
                       height: 30,

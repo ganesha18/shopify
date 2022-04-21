@@ -3,16 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_project/Screens/signInPage.dart';
-import 'package:pinput/pin_put/pin_put.dart';
+import 'package:pinput/pinput.dart';
 import 'home.dart';
 import 'login.dart';
-import 'loginPage/forgetEmailPage alert.dart';
 
 class OTPSCREEN extends StatefulWidget {
   final String phone;
   final String codeDigits;
-  const OTPSCREEN({Key? key, required this.phone, required this.codeDigits})
-      : super(key: key);
+  const OTPSCREEN({required this.phone, required this.codeDigits});
 
   @override
   _OTPSCREENState createState() => _OTPSCREENState();
@@ -85,7 +83,7 @@ class _OTPSCREENState extends State<OTPSCREEN> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => GetStart()),
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
                 );
               },
               icon: Icon(
@@ -162,22 +160,45 @@ class _OTPSCREENState extends State<OTPSCREEN> {
                 top: 30,
                 bottom: 30,
               ),
-              child: PinPut(
-                fieldsCount: 4,
-                textStyle: TextStyle(
-                  fontSize: 27.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+              child: Pinput(
+                length: 6,
+                submittedPinTheme: PinTheme(
+                  height: 60,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                  ),
                 ),
-                eachFieldHeight: 70.0,
-                eachFieldWidth: 50.0,
+                followingPinTheme: PinTheme(
+                  height: 60,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                defaultPinTheme: PinTheme(
+                  height: 60,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
                 focusNode: _pinOTPCodeFoucus,
                 controller: _pinOTPCodeController,
-                submittedFieldDecoration: pinOTPCodeController,
-                selectedFieldDecoration: pinOTPCodeController,
-                followingFieldDecoration: pinOTPCodeController,
                 pinAnimationType: PinAnimationType.fade,
-                onSubmit: (pin) async {
+                onSubmitted: (pin) async {
                   try {
                     await FirebaseAuth.instance
                         .signInWithCredential(PhoneAuthProvider.credential(
@@ -216,7 +237,7 @@ class _OTPSCREENState extends State<OTPSCREEN> {
                 ),
                 onPressed: () {
                   Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (C) => Home()));
+                      .push(MaterialPageRoute(builder: (C) => GetStart()));
                 },
                 color: Color.fromRGBO(253, 107, 34, 0.8),
                 textColor: Colors.white,

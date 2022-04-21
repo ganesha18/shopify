@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_braintree/flutter_braintree.dart';
 import '../../Components/dialogBox.dart';
 import '../../common/theme_Helper.dart';
 import '../../vehicle/confirmLocation.dart';
+import '../cleaningPage/commandConfirm.dart';
 import 'cleaningCalenderPage.dart';
+import 'commandConfirm.dart';
 
 class NewCard extends StatefulWidget {
   const NewCard({Key? key}) : super(key: key);
@@ -15,8 +17,12 @@ class NewCard extends StatefulWidget {
 
 class _NewCardState extends State<NewCard> {
   bool checkboxValue = false;
+  late String tokenizationKey = 'sandbox_d58mdypz_k5nt8znxd6zhc2dz';
   final _formKey = GlobalKey<FormState>();
-
+  final name = new TextEditingController();
+  final Card_number = new TextEditingController();
+  final Expired_Date = new TextEditingController();
+  final CVV = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,6 +144,8 @@ class _NewCardState extends State<NewCard> {
                       padding: EdgeInsets.only(left: 20, right: 20, top: 10),
                       child: Container(
                         child: TextFormField(
+                          controller: name,
+                          keyboardType: TextInputType.text,
                           decoration:
                               ThemeHelper().textInputDecoration('Nom', ''),
                         ),
@@ -154,6 +162,8 @@ class _NewCardState extends State<NewCard> {
                           height: 70,
                           width: 250,
                           child: TextFormField(
+                            controller: Card_number,
+                            keyboardType: TextInputType.number,
                             decoration: ThemeHelper()
                                 .textInputDecoration('Nomero de la carte', ''),
                           ),
@@ -182,6 +192,8 @@ class _NewCardState extends State<NewCard> {
                           width: 220,
                           // padding: EdgeInsets.fromLTRB(5, 10, 160, 10),
                           child: TextFormField(
+                            controller: Expired_Date,
+                            keyboardType: TextInputType.datetime,
                             decoration: InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
@@ -217,6 +229,8 @@ class _NewCardState extends State<NewCard> {
                           width: 115,
                           //padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            controller: CVV,
                             decoration: InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
@@ -313,21 +327,50 @@ class _NewCardState extends State<NewCard> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10)),
                         child: TextButton(
-                          // color: Color.fromRGBO(253, 107, 34, 0.8),
-                          child: Text(
-                            "Ajouter",
-                            style: TextStyle(color: Colors.white, fontSize: 24),
-                          ),
-                          onPressed: () {
-                            {
+                            // color: Color.fromRGBO(253, 107, 34, 0.8),
+                            child: Text(
+                              "Ajouter",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 24),
+                            ),
+                            onPressed: () async {
+                              {
+                                var request = BraintreeDropInRequest(
+                                  tokenizationKey:
+                                      'sandbox_d58mdypz_k5nt8znxd6zhc2dz',
+                                  collectDeviceData: true,
+                                  googlePaymentRequest:
+                                      BraintreeGooglePaymentRequest(
+                                    totalPrice: '4.20',
+                                    currencyCode: 'USD',
+                                    billingAddressRequired: false,
+                                  ),
+                                  paypalRequest: BraintreePayPalRequest(
+                                    amount: '4.20',
+                                    displayName: '$name',
+                                  ),
+                                  cardEnabled: true,
+                                );
+                                final result =
+                                    await BraintreeDropIn.start(request);
+                              }
+                              final request1 = BraintreeCreditCardRequest(
+                                cardNumber: '$Card_number',
+                                expirationMonth: '12',
+                                expirationYear: '2024',
+                                cvv: '$CVV',
+                              );
+                              final result = await Braintree.tokenizeCreditCard(
+                                tokenizationKey =
+                                    "sandbox_d58mdypz_k5nt8znxd6zhc2dz",
+                                request1,
+                              );
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => CustomDialog()),
                               );
-                            }
-                          },
-                        ),
+                            }),
                       ),
                     ),
                   ]),
@@ -338,6 +381,47 @@ class _NewCardState extends State<NewCard> {
         ),
       ),
     );
+  }
+
+  Future<void> LAUNCH_NATIVE_DROP_IN(
+    String name,
+  ) async {
+    var request = BraintreeDropInRequest(
+      tokenizationKey: 'sandbox_d58mdypz_k5nt8znxd6zhc2dz',
+      collectDeviceData: true,
+      googlePaymentRequest: BraintreeGooglePaymentRequest(
+        totalPrice: '4.20',
+        currencyCode: 'USD',
+        billingAddressRequired: false,
+      ),
+      paypalRequest: BraintreePayPalRequest(
+        amount: '4.20',
+        displayName: '$name',
+      ),
+      cardEnabled: true,
+    );
+    final result = await BraintreeDropIn.start(request);
+    if (result != null) {
+      // showNonce(result.paymentMethodNonce);
+    }
+  }
+
+  Future<void> TOKENIZE_CREDIT_CARD(
+      double number, int expMonth, int expyear, int cvv) async {
+    final request = BraintreeCreditCardRequest(
+      cardNumber: 'number',
+      expirationMonth: 'expMonth',
+      expirationYear: 'expyear',
+      cvv: 'cvv',
+    );
+    String tokenizationKey = "sandbox_d58mdypz_k5nt8znxd6zhc2dz";
+    final result = await Braintree.tokenizeCreditCard(
+      tokenizationKey = "sandbox_d58mdypz_k5nt8znxd6zhc2dz",
+      request,
+    );
+    if (result != null) {
+      //   showNonce(result);
+    }
   }
 }
 
@@ -384,7 +468,10 @@ class CustomDialog extends StatelessWidget {
                     RaisedButton(
                       color: Colors.white,
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CommandConfirme1()));
                       },
                       child: Text(
                         "RETOUR AU PAIEMENT",

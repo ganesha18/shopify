@@ -1,6 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/Screens/account.dart';
-
 import 'HouseShifting/Service_de_menege.dart';
 import 'contact.dart';
 
@@ -12,6 +11,30 @@ class notification extends StatefulWidget {
 }
 
 class _notificationState extends State<notification> {
+  List _notifications = [];
+  var _firestoreInstance = FirebaseFirestore.instance;
+
+  fetchProducts() async {
+    QuerySnapshot qn =
+        await _firestoreInstance.collection("notificationScreen").get();
+    setState(() {
+      for (int i = 0; i < qn.docs.length; i++) {
+        _notifications.add({
+          "img": qn.docs[i]["img"],
+          "text": qn.docs[i]["text"],
+        });
+      }
+    });
+
+    return qn.docs;
+  }
+
+  @override
+  void initState() {
+    fetchProducts();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,7 +149,7 @@ class _notificationState extends State<notification> {
                               physics: ClampingScrollPhysics(),
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
-                              itemCount: 8,
+                              itemCount: _notifications.length,
                               itemBuilder: (BuildContext context, int index) =>
                                   Column(
                                 children: [
@@ -143,8 +166,8 @@ class _notificationState extends State<notification> {
                                           // color: Colors.deepOrange,
                                         ),
                                         child: Row(children: [
-                                          Image.asset(
-                                            "images/rappel.JPG",
+                                          Image.network(
+                                            _notifications[index]["img"][0],
                                             height: 130,
                                             width: 90,
                                           ),
@@ -152,11 +175,11 @@ class _notificationState extends State<notification> {
                                             width: 16,
                                           ),
                                           Text(
-                                            "Rappel",
+                                            "${_notifications[index]["text"]}",
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 color: Colors.black),
-                                          )
+                                          ),
                                         ]),
                                       ),
                                     ),

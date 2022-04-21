@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/Screens/loginPage/setNewPassword.dart';
-import 'package:flutter_project/common/theme_Helper.dart';
-
-import '../home.dart';
-import '../login.dart';
-import 'LoginSetNewPassword.dart';
 import 'emaillogin.dart';
+import 'login.dart';
 import 'loginForgetPassword.dart';
 
 class LoginForgetPasswordResetEmail extends StatefulWidget {
@@ -37,7 +32,8 @@ class _LoginForgetPasswordResetEmailState
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => EmailLogin()),
+                    MaterialPageRoute(
+                        builder: (context) => EmailForgetPassword()),
                   );
                 },
                 icon: Icon(
@@ -100,7 +96,12 @@ class _LoginForgetPasswordResetEmailState
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => login()),
+                          );
+                        },
                         child: Icon(
                           Icons.arrow_forward,
                           color: Colors.black,

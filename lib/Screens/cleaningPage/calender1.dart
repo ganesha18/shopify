@@ -1,17 +1,15 @@
 //import 'dart:html';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import '../../vehicle/VichleHomeScreen.dart';
-import '../contact.dart';
+import '../../GOOGLE_MAP/Location_tracking.dart';
 import '../login.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
 import 'calender.dart';
 
 class Cleaning_service_Calender2 extends StatefulWidget {
-  const Cleaning_service_Calender2({Key? key}) : super(key: key);
 
   @override
   _Cleaning_service_Calender2State createState() =>
@@ -20,11 +18,11 @@ class Cleaning_service_Calender2 extends StatefulWidget {
 
 class _Cleaning_service_Calender2State
     extends State<Cleaning_service_Calender2> {
+  late final String service;
   DateTime _currentDate = DateTime.now();
   DateTime _currentDate2 = DateTime.now();
   String _currentMonth = DateFormat.yMMM().format(DateTime.now());
   DateTime _targetDateTime = DateTime.now();
-
   late CalendarCarousel _calendarCarouselNoHeader;
 
   static Widget _eventIcon = new Container(
@@ -67,6 +65,11 @@ class _Cleaning_service_Calender2State
   );
 
   bool checkboxValue =false;
+  final String main1 = 'main';
+  final String aprt = 'Apres-midi';
+  final String time = '7:00';
+  final String time2 ='11:00';
+
   @override
   Widget build(BuildContext context) {
     _calendarCarouselNoHeader = CalendarCarousel<Event>(
@@ -297,7 +300,7 @@ class _Cleaning_service_Calender2State
               children: [
                 TextButton(
                     child: Text(
-                        "Main".toUpperCase(),
+                        "$main1".toUpperCase(),
                         style: TextStyle(fontSize: 16,
                             color: Colors.white
                         )
@@ -318,7 +321,7 @@ class _Cleaning_service_Calender2State
                 SizedBox(width: 10,),
                 TextButton(
                     child: Text(
-                        "Apres-midi".toUpperCase(),
+                        "$aprt".toUpperCase(),
                         style: TextStyle(fontSize: 16,
                             color: Colors.black)
                     ),
@@ -467,7 +470,38 @@ class _Cleaning_service_Calender2State
                               color: Colors.deepOrange[400],
                             ),
                             child: FlatButton.icon(
-                              onPressed: () {},
+                              onPressed: () async {
+
+                                    String message;
+
+                                try {
+                                // Get a reference to the `feedback` collection
+                                final collection = FirebaseFirestore.instance
+                                    .collection('Calender');
+
+                                // Write the server's timestamp and the user's feedback
+                                await collection.doc().set({
+                                'timestamp': FieldValue.serverTimestamp(),
+                                'currentDate': _currentDate,
+                                'TargetDate': _targetDateTime ,
+                                'selectedDate': _currentDate2
+                                });
+
+                                message = '';
+                                } catch (e) {
+                                  message = 'Error when sending feedback';
+                                }
+
+                                // Show a snackbar with the result
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(message)));
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>MapView()),
+
+                                );
+                              },
                               label: Center(
                                 child: Text(
                                   "Continuer",

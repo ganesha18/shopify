@@ -1,13 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/Screens/cleaningPage/CleaningService.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../cleaningPage/Cleaning_service.dart';
-import 'cleaningCalenderPage.dart';
-import '../contact.dart';
-import '../login.dart';
-import 'commandConfirm.dart';
+import '../cleaningPage/calender.dart';
+import '../home.dart';
+import '../notification.dart';
 
 class Service_de_menage extends StatefulWidget {
   const Service_de_menage({Key? key}) : super(key: key);
@@ -49,8 +47,7 @@ class _Service_de_menageState extends State<Service_de_menage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => CommandConfirme1()),
+                          MaterialPageRoute(builder: (context) => Home()),
                         );
                       },
                       icon: Icon(
@@ -82,8 +79,7 @@ class _Service_de_menageState extends State<Service_de_menage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  ServiceCleaning_de_menage()),
+                              builder: (context) => notification()),
                         );
                       },
                       icon: Icon(
@@ -159,7 +155,26 @@ class _Service_de_menageState extends State<Service_de_menage> {
                             FlatButton(
                               height: 110,
                               //minWidth: double.infinity,
-                              onPressed: () {},
+                              onPressed: () async {
+                                final collection = FirebaseFirestore.instance
+                                    .collection("users-favourite-items")
+                                    .doc(FirebaseAuth
+                                        .instance.currentUser!.email)
+                                    .collection("items");
+                                await collection.doc().set({
+                                  'timestamp': FieldValue.serverTimestamp(),
+                                  'studio': 'studio',
+                                  'appartement': '',
+                                  'villa': ''
+                                });
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Cleaning_service_Calender1()),
+                                );
+                              },
                               child: Image.asset(
                                 "images/studio.JPG",
                                 height: 120,
@@ -169,7 +184,25 @@ class _Service_de_menageState extends State<Service_de_menage> {
                             FlatButton(
                               height: 110,
                               //minWidth: double.infinity,
-                              onPressed: () {},
+                              onPressed: () async {
+                                final collection = FirebaseFirestore.instance
+                                    .collection("users-favourite-items")
+                                    .doc(FirebaseAuth
+                                        .instance.currentUser!.email)
+                                    .collection("items");
+                                await collection.doc().set({
+                                  'timestamp': FieldValue.serverTimestamp(),
+                                  'studio': '',
+                                  'appartement': 'appartement',
+                                  'villa': ''
+                                });
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Cleaning_service_Calender1()),
+                                );
+                              },
                               child: Image.asset(
                                 "images/appartement.JPG",
                                 height: 120,
@@ -179,10 +212,28 @@ class _Service_de_menageState extends State<Service_de_menage> {
                             FlatButton(
                               height: 110,
                               //minWidth: double.infinity,
-                              onPressed: () {},
+                              onPressed: () async {
+                                final collection = FirebaseFirestore.instance
+                                    .collection("users-favourite-items")
+                                    .doc(FirebaseAuth
+                                        .instance.currentUser!.email)
+                                    .collection("items");
+                                await collection.doc().set({
+                                  'timestamp': FieldValue.serverTimestamp(),
+                                  'studio': '',
+                                  'appartement': '',
+                                  'villa': 'villa'
+                                });
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Cleaning_service_Calender1()),
+                                );
+                              },
                               child: Image.asset(
                                 "images/villa.JPG",
-                                height: 120,
+                                height: 140,
                                 width: 80,
                               ),
                             ),
@@ -253,38 +304,113 @@ class _Service_de_menageState extends State<Service_de_menage> {
                             child: Row(
                               children: [
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Cleaning_service_Calender1()),
+                                    );
+                                  },
                                   child: Image.asset(
                                     "images/bed.JPG",
                                     height: 70,
                                   ),
                                 ),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Cleaning_service_Calender1()),
+                                    );
+                                  },
                                   child: Image.asset(
                                     "images/sofa.JPG",
                                     height: 70,
                                   ),
+                                  style: ButtonStyle(
+                                    foregroundColor: MaterialStateProperty.all(
+                                        Colors.transparent),
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            side: BorderSide(
+                                                color: Colors.white))),
+                                  ),
                                 ),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Cleaning_service_Calender1()),
+                                    );
+                                  },
                                   child: Image.asset(
                                     "images/chair.JPG",
                                     height: 70,
                                   ),
+                                  style: ButtonStyle(
+                                    foregroundColor: MaterialStateProperty.all(
+                                        Colors.transparent),
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            side: BorderSide(
+                                                color: Colors.white))),
+                                  ),
                                 ),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Cleaning_service_Calender1()),
+                                    );
+                                  },
                                   child: Image.asset(
                                     "images/almira.JPG",
                                     height: 70,
                                   ),
+                                  style: ButtonStyle(
+                                    foregroundColor: MaterialStateProperty.all(
+                                        Colors.transparent),
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            side: BorderSide(
+                                                color: Colors.white))),
+                                  ),
                                 ),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Cleaning_service_Calender1()),
+                                    );
+                                  },
                                   child: Image.asset(
                                     "images/ac.JPG",
                                     height: 70,
+                                  ),
+                                  style: ButtonStyle(
+                                    foregroundColor: MaterialStateProperty.all(
+                                        Colors.transparent),
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            side: BorderSide(
+                                                color: Colors.white))),
                                   ),
                                 ),
                               ],
@@ -295,31 +421,99 @@ class _Service_de_menageState extends State<Service_de_menage> {
                             child: Row(
                               children: [
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Cleaning_service_Calender1()),
+                                    );
+                                  },
                                   child: Image.asset(
                                     "images/fridge.JPG",
                                     height: 70,
                                   ),
+                                  style: ButtonStyle(
+                                    foregroundColor: MaterialStateProperty.all(
+                                        Colors.transparent),
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            side: BorderSide(
+                                                color: Colors.white))),
+                                  ),
                                 ),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Cleaning_service_Calender1()),
+                                    );
+                                  },
                                   child: Image.asset(
                                     "images/oven.JPG",
                                     height: 70,
                                   ),
+                                  style: ButtonStyle(
+                                    foregroundColor: MaterialStateProperty.all(
+                                        Colors.transparent),
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            side: BorderSide(
+                                                color: Colors.white))),
+                                  ),
                                 ),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Cleaning_service_Calender1()),
+                                    );
+                                  },
                                   child: Image.asset(
                                     "images/tv.JPG",
                                     height: 70,
                                   ),
+                                  style: ButtonStyle(
+                                    foregroundColor: MaterialStateProperty.all(
+                                        Colors.transparent),
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            side: BorderSide(
+                                                color: Colors.white))),
+                                  ),
                                 ),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Cleaning_service_Calender1()),
+                                    );
+                                  },
                                   child: Image.asset(
                                     "images/wardrobe.JPG",
                                     height: 70,
+                                  ),
+                                  style: ButtonStyle(
+                                    foregroundColor: MaterialStateProperty.all(
+                                        Colors.transparent),
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            side: BorderSide(
+                                                color: Colors.white))),
                                   ),
                                 ),
                                 TextButton(
@@ -327,6 +521,16 @@ class _Service_de_menageState extends State<Service_de_menage> {
                                   child: Image.asset(
                                     "images/add.JPG",
                                     height: 70,
+                                  ),
+                                  style: ButtonStyle(
+                                    foregroundColor: MaterialStateProperty.all(
+                                        Colors.transparent),
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            side: BorderSide(
+                                                color: Colors.white))),
                                   ),
                                 ),
                               ],
@@ -366,7 +570,11 @@ class _Service_de_menageState extends State<Service_de_menage> {
                                 height: 10,
                                 minWidth: 10,
                                 color: Colors.grey[90],
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState() {
+                                    Count--;
+                                  }
+                                },
                                 child: FaIcon(
                                   FontAwesomeIcons.minus,
                                   size: 20,
@@ -378,7 +586,11 @@ class _Service_de_menageState extends State<Service_de_menage> {
                                 height: 10,
                                 minWidth: 10,
                                 color: Colors.grey[90],
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState() {
+                                    Count++;
+                                  }
+                                },
                                 child: FaIcon(
                                   FontAwesomeIcons.plus,
                                   size: 20,

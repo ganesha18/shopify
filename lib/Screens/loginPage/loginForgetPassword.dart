@@ -1,9 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/common/theme_Helper.dart';
-
-import '../home.dart';
-import '../login.dart';
-import 'LoginSetNewPassword.dart';
 import 'forgetEmailPage alert.dart';
 import 'login.dart';
 
@@ -15,6 +12,9 @@ class EmailForgetPassword extends StatefulWidget {
 }
 
 class _EmailForgetPasswordState extends State<EmailForgetPassword> {
+  final _formKey = GlobalKey<FormState>();
+  final email = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +82,7 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                   padding: EdgeInsets.all(10),
                   child: Container(
                     child: TextFormField(
+                      controller: email,
                       decoration: ThemeHelper()
                           .textInputDecoration("Adresse e-mail", ""),
                       keyboardType: TextInputType.emailAddress,
@@ -114,9 +115,16 @@ class _EmailForgetPasswordState extends State<EmailForgetPassword> {
                     fontSize: 18,
                   ),
                 ),
-                onPressed: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (C) => Home()));
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    await FirebaseAuth.instance
+                        .sendPasswordResetEmail(email: email.text)
+                        .then((value) => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    LoginForgetPasswordResetEmail())));
+                  }
                 },
                 color: Color.fromRGBO(253, 107, 34, 0.8),
                 textColor: Colors.white,

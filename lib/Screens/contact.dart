@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Screens/home.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'login.dart';
+import '../Faq.dart';
+import 'account.dart';
+import 'addASocialAccount.dart';
+import 'chatbot.dart';
 import 'loginPage/ChangePassword.dart';
 
 class Contact extends StatefulWidget {
@@ -145,20 +146,30 @@ class _ContactState extends State<Contact> {
                                   child: Row(
                                     children: [
                                       Container(
-                                          height: 160,
-                                          width: 160,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            border:
-                                                Border.all(color: Colors.grey),
-                                            //color: Colors.lightGreenAccent,
-                                          ),
-                                          child: Image.asset(
-                                            "images/chat.JPG",
-                                            height: 100,
-                                            width: 100,
-                                          )),
+                                        height: 160,
+                                        width: 160,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          border:
+                                              Border.all(color: Colors.grey),
+                                          //color: Colors.lightGreenAccent,
+                                        ),
+                                        child: MaterialButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ChatBot()),
+                                              );
+                                            },
+                                            child: Image.asset(
+                                              "images/chat.JPG",
+                                              height: 130,
+                                              width: 130,
+                                            )),
+                                      ),
                                       SizedBox(
                                         width: 5,
                                       ),
@@ -174,8 +185,8 @@ class _ContactState extends State<Contact> {
                                           ),
                                           child: Image.asset(
                                             "images/t.JPG",
-                                            height: 50,
-                                            width: 50,
+                                            height: 45,
+                                            width: 45,
                                           )),
                                     ],
                                   ),
@@ -192,20 +203,29 @@ class _ContactState extends State<Contact> {
                                   child: Row(
                                     children: [
                                       Container(
-                                          height: 160,
-                                          width: 160,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            border:
-                                                Border.all(color: Colors.grey),
-                                            //color: Colors.lightGreenAccent,
-                                          ),
-                                          child: Image.asset(
-                                            "images/email.JPG",
-                                            height: 100,
-                                            width: 100,
-                                          )),
+                                        height: 160,
+                                        width: 160,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          border:
+                                              Border.all(color: Colors.grey),
+                                          //color: Colors.lightGreenAccent,
+                                        ),
+                                        child: MaterialButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          AddSocialAccount()));
+                                            },
+                                            child: Image.asset(
+                                              "images/email.JPG",
+                                              height: 130,
+                                              width: 130,
+                                            )),
+                                      ),
                                       SizedBox(
                                         width: 5,
                                       ),
@@ -219,11 +239,21 @@ class _ContactState extends State<Contact> {
                                                 Border.all(color: Colors.grey),
                                             //  color: Colors.lightBlueAccent,
                                           ),
-                                          child: Center(
-                                            child: Image.asset(
-                                              "images/F.JPG",
-                                              height: 160,
-                                              width: 160,
+                                          child: MaterialButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        FAQPage()),
+                                              );
+                                            },
+                                            child: Center(
+                                              child: Image.asset(
+                                                "images/F.JPG",
+                                                height: 160,
+                                                width: 160,
+                                              ),
                                             ),
                                           )),
                                     ],
@@ -258,7 +288,13 @@ class _ContactState extends State<Contact> {
                                           ),
                                         ),
                                         FlatButton.icon(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AccountPage()));
+                                          },
                                           label: Text(""),
                                           icon: Container(
                                             height: 30,

@@ -7,6 +7,8 @@ import '../contact.dart';
 import '../login.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+import '../notification.dart';
+
 class Cleaning_service_Calender extends StatefulWidget {
   const Cleaning_service_Calender({Key? key}) : super(key: key);
 
@@ -78,8 +80,7 @@ class _Cleaning_service_CalenderState extends State<Cleaning_service_Calender> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => Cleaning_service_Calender()),
+                          MaterialPageRoute(builder: (context) => notification()),
                         );
                       },
                       icon: Icon(
