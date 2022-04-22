@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "shifthouse-fff4a",
+  "private_key_id": "e917577e84ce117568526383fc4790907a854a5b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC88eZpCYl2FldA\n0K3IxMuEkA94oL/92WcATdaNBZiL8JaLfNW/Rc/B8D2fmP4SrcGBnvVGUOK8JmeS\nzEzj8JlNIc8zFYpzoi88GRkfHRsHOJEtDR0nqQAw9uOaakrxKb///zB+xNcM1WWR\n5akkFyVA8IEIrkWOrH5BJNv5/43bmPiMUyxCnAMlkIGsU2qxd17vVA75xL92SFfC\n4yi5cJPvnrns6oseNdg2a7Hz4hxq65KtlO6lbrzZqIceoHepdiv+ZrYcO8WXpKDl\ntpUEvmLLwBfq87rbhCDas1/lnwuV4/DtBuM2QZ8HtVitsmaNJCFVuXOtge+uc7jj\nGon/Xw3VAgMBAAECggEACMUprsJ0kPikgCuvhVwtHjAZp72+a6gFsevrA4y48fXu\n5vaabVBuPlBKa/gMAw3xp3SbafIjNByMPjIhd4sZco0ZMwPS818Z1i5MDjepo4Iq\nqu6q5cZgbeVn1ykL5XnMobNUqu20FbJqDoWcfkJcxlDjjGWacO7sxVVSqJ4GFaVF\nhDymmnocR5E66aFdEtamXa1A2ByN9ZRBQlkiZ/QTcCFBf83li/DR4rjX6wDr/BX4\namB8egKWbabZgov1V+51YQcSEo/2aX1EXh9dctqYMS9YiWgGO7lFYC0H83tmzwLX\n8TJjGcUbRLtkEdPh3ydx+swH8+ygg3phZrU2kPvlQQKBgQD3wXMsm88CTjyQTcdi\nEAhmhgu/vZeiiTu6lpOC+Sltxe96sOZlSS/zc7n98ev7tPC8QVtWTHfzzDspNvOX\nR8Zq8q2oSs6s91aFXDTs91/Zhd9rUC+ostswuQzN7iCphiB74sL9j0zIWzhWvZVF\nabpKryMRBDIcc4dLlkozpMtonQKBgQDDO3XkdW0Asy60tIfER5Q74E9Vry7KRjxX\n8mEWmIQg7YoU5jqRDzpAsk6Dtyk2AGB0b9oXYUo6+ngKeU739E0uqLfzl7FZIpqz\nZ4fAcFUF11YtoqEXu/khKAMhUvDPQp9bykeTKrnXsn3zMUEBPY8bozhntuVqiEVj\nnWH8oLkomQKBgAIJokPcqDAxqofZS+l/jkIhmhkimwuoK0iWknICUJfph9WvfMWa\ne316Fy6CfdldHJm/w9uK13W22Um2fPxih7w7cLgwnVCI3DpOjtTgF/a3BiZgy3OM\nvQbCjttmuPgL9VpvfAEP26bOMUFtX7vpabHRjO1H5o2bWaKCguu30EB1AoGAeVL/\nPX03wwKXGNdDs9djqB4KT04xfqRNJb5LVXZsTeYwNDKq3LCg28my/ymY46UyS8mi\nt3rPXX1/kcq3J2HbgQ56Wle/b4wQpULGWvGz9JBQTsXM5Gn9NPyfjVr0qWhWjf1T\no4IewYt7t+C46+NshplVGSbQxPZwYKpSVWMwDakCgYEA0UfPXgWMnCCj0SqwStWD\na/RcjkHZZbPp+x1qJErBZ9PDmfwy5URDQuvIUHSayyy+EiRi2i/uI32xU/QsfRYi\n1BZYDyqKVCTCX0y9oEJUTqJt8/MmTui+mz1G1GO+4djO//IWVjDsnPO0So0BZSk1\nNOv//nnCdfrIn10UeNs6Wio=\n-----END PRIVATE KEY-----\n",
+  "client_email": "dialogflow@shifthouse-fff4a.iam.gserviceaccount.com",
+  "client_id": "103735405154889229569",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dialogflow%40shifthouse-fff4a.iam.gserviceaccount.com"
+}
