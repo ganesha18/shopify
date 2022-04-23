@@ -12,7 +12,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _controller = TextEditingController();
-  String dialCodeDigits = "+00";
+  String dialCodeDigits = "+212";
   FirebaseAuth auth = FirebaseAuth.instance;
 
   @override

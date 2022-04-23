@@ -2,7 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_project/receipt/receipt.dart';
+import 'Components/bottombar.dart';
+import 'GOOGLE_MAP/Location_tracking.dart';
+import 'Screens/PaintingService/Painting_service.dart';
 import 'Screens/history/maphistory.dart';
+import 'Screens/loginPage/login.dart';
 
 Future<void> _messageHandler(RemoteMessage message) async {
   print('background message ${message.notification!.body}');
@@ -30,6 +35,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.deepOrange,
         ),
-        home: Map_history());
+        home: reciept());
   }
 }

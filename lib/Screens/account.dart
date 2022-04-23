@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../GOOGLE_MAP/Location_tracking.dart';
-import '../common/SendSms.dart';
+import '../vehicle/review.dart';
 import 'AdminNotififier.dart';
 import 'Editing_Screen.dart';
 import 'HouseShifting/NewCard.dart';
 import 'Parrainage.dart';
-import 'addASocialAccount.dart';
 import 'contact.dart';
-import 'home.dart';
 import 'notification.dart';
 
 class AccountPage extends StatefulWidget {
@@ -43,7 +41,7 @@ class _AccountPageState extends State<AccountPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SendSms()),
+                      MaterialPageRoute(builder: (context) => reviewPage()),
                     );
                   },
                   icon: Icon(
@@ -376,7 +374,7 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                       ]),
                       SizedBox(
-                        width: 150,
+                        width: 160,
                       ),
                       IconButton(
                           icon: Icon(

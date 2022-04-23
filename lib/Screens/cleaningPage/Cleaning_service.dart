@@ -195,9 +195,9 @@ class _ServiceCleaning_de_menageState extends State<ServiceCleaning_de_menage> {
                                     'villa': ''
                                   });
 
-                                  message = '';
+                                  message = 'success';
                                 } catch (e) {
-                                  message = 'Error when sending feedback';
+                                  message = 'Error';
                                 }
 
                                 // Show a snackbar with the result
@@ -237,9 +237,9 @@ class _ServiceCleaning_de_menageState extends State<ServiceCleaning_de_menage> {
                                     'villa': ''
                                   });
 
-                                  message = '';
+                                  message = 'success';
                                 } catch (e) {
-                                  message = 'Error when sending feedback';
+                                  message = 'Error';
                                 }
 
                                 // Show a snackbar with the result
@@ -279,9 +279,9 @@ class _ServiceCleaning_de_menageState extends State<ServiceCleaning_de_menage> {
                                     'villa': 'villa'
                                   });
 
-                                  message = '';
+                                  message = 'success';
                                 } catch (e) {
-                                  message = 'Error when sending feedback';
+                                  message = 'Error';
                                 }
 
                                 // Show a snackbar with the result

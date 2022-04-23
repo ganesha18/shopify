@@ -515,6 +515,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         .collection("users-form-data")
         .doc(FirebaseAuth.instance.currentUser!.email)
         .collection("profile_pic");
-    return _collectionRef.doc(currentUser!.email).set({'img': pick});
+    return _collectionRef.doc(currentUser!.email).set({'img': pick.toString()});
   }
 }

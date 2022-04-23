@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../Screens/HouseShifting/Service_de_menege.dart';
@@ -11,6 +12,29 @@ class reciept extends StatefulWidget {
 }
 
 class _recieptState extends State<reciept> {
+  List cost = [];
+  var _firestoreInstance = FirebaseFirestore.instance;
+
+  fetchProducts() async {
+    QuerySnapshot qn =
+        await _firestoreInstance.collection("HOME_PAGE_AID").get();
+    setState(() {
+      for (int i = 0; i < qn.docs.length; i++) {
+        cost.add({
+          "cost": qn.docs[i]["cost"],
+        });
+      }
+    });
+
+    return qn.docs;
+  }
+
+  @override
+  void initState() {
+    //TODO: implement activate
+    fetchProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -186,7 +210,7 @@ class _recieptState extends State<reciept> {
                                             width: 100,
                                           ),
                                           Text(
-                                            "\$20",
+                                            "",
                                             style: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 14),
@@ -218,7 +242,7 @@ class _recieptState extends State<reciept> {
                                             width: 115,
                                           ),
                                           Text(
-                                            "\$2",
+                                            "",
                                             style: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 14),
@@ -250,7 +274,7 @@ class _recieptState extends State<reciept> {
                                             width: 135,
                                           ),
                                           Text(
-                                            "\$20",
+                                            "",
                                             style: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 14),
@@ -282,7 +306,7 @@ class _recieptState extends State<reciept> {
                                             width: 190,
                                           ),
                                           Text(
-                                            "\$20",
+                                            "${cost[0]["text"]}",
                                             style: TextStyle(
                                                 color: Colors.deepOrange[400],
                                                 fontSize: 14),

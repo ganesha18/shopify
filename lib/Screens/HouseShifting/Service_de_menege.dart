@@ -157,17 +157,18 @@ class _Service_de_menageState extends State<Service_de_menage> {
                               //minWidth: double.infinity,
                               onPressed: () async {
                                 final collection = FirebaseFirestore.instance
-                                    .collection("users-favourite-items")
+                                    .collection("users-form-data")
                                     .doc(FirebaseAuth
                                         .instance.currentUser!.email)
-                                    .collection("items");
+                                    .collection("Service_de_menage");
+
+                                // Write the server's timestamp and the user's feedback
                                 await collection.doc().set({
                                   'timestamp': FieldValue.serverTimestamp(),
                                   'studio': 'studio',
                                   'appartement': '',
                                   'villa': ''
                                 });
-
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -186,10 +187,12 @@ class _Service_de_menageState extends State<Service_de_menage> {
                               //minWidth: double.infinity,
                               onPressed: () async {
                                 final collection = FirebaseFirestore.instance
-                                    .collection("users-favourite-items")
+                                    .collection("users-form-data")
                                     .doc(FirebaseAuth
                                         .instance.currentUser!.email)
-                                    .collection("items");
+                                    .collection("Service_de_menage");
+
+                                // Write the server's timestamp and the user's feedback
                                 await collection.doc().set({
                                   'timestamp': FieldValue.serverTimestamp(),
                                   'studio': '',
@@ -214,22 +217,18 @@ class _Service_de_menageState extends State<Service_de_menage> {
                               //minWidth: double.infinity,
                               onPressed: () async {
                                 final collection = FirebaseFirestore.instance
-                                    .collection("users-favourite-items")
+                                    .collection("users-form-data")
                                     .doc(FirebaseAuth
                                         .instance.currentUser!.email)
-                                    .collection("items");
+                                    .collection("Service_de_menage");
+
+                                // Write the server's timestamp and the user's feedback
                                 await collection.doc().set({
                                   'timestamp': FieldValue.serverTimestamp(),
                                   'studio': '',
                                   'appartement': '',
                                   'villa': 'villa'
                                 });
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Cleaning_service_Calender1()),
-                                );
                               },
                               child: Image.asset(
                                 "images/villa.JPG",
@@ -304,28 +303,14 @@ class _Service_de_menageState extends State<Service_de_menage> {
                             child: Row(
                               children: [
                                 TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Cleaning_service_Calender1()),
-                                    );
-                                  },
+                                  onPressed: () {},
                                   child: Image.asset(
                                     "images/bed.JPG",
                                     height: 70,
                                   ),
                                 ),
                                 TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Cleaning_service_Calender1()),
-                                    );
-                                  },
+                                  onPressed: () {},
                                   child: Image.asset(
                                     "images/sofa.JPG",
                                     height: 70,
@@ -342,14 +327,7 @@ class _Service_de_menageState extends State<Service_de_menage> {
                                   ),
                                 ),
                                 TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Cleaning_service_Calender1()),
-                                    );
-                                  },
+                                  onPressed: () {},
                                   child: Image.asset(
                                     "images/chair.JPG",
                                     height: 70,
@@ -366,14 +344,7 @@ class _Service_de_menageState extends State<Service_de_menage> {
                                   ),
                                 ),
                                 TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Cleaning_service_Calender1()),
-                                    );
-                                  },
+                                  onPressed: () {},
                                   child: Image.asset(
                                     "images/almira.JPG",
                                     height: 70,
@@ -390,14 +361,7 @@ class _Service_de_menageState extends State<Service_de_menage> {
                                   ),
                                 ),
                                 TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Cleaning_service_Calender1()),
-                                    );
-                                  },
+                                  onPressed: () {},
                                   child: Image.asset(
                                     "images/ac.JPG",
                                     height: 70,
@@ -421,14 +385,7 @@ class _Service_de_menageState extends State<Service_de_menage> {
                             child: Row(
                               children: [
                                 TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Cleaning_service_Calender1()),
-                                    );
-                                  },
+                                  onPressed: () {},
                                   child: Image.asset(
                                     "images/fridge.JPG",
                                     height: 70,
@@ -445,14 +402,7 @@ class _Service_de_menageState extends State<Service_de_menage> {
                                   ),
                                 ),
                                 TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Cleaning_service_Calender1()),
-                                    );
-                                  },
+                                  onPressed: () {},
                                   child: Image.asset(
                                     "images/oven.JPG",
                                     height: 70,
@@ -469,14 +419,7 @@ class _Service_de_menageState extends State<Service_de_menage> {
                                   ),
                                 ),
                                 TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Cleaning_service_Calender1()),
-                                    );
-                                  },
+                                  onPressed: () {},
                                   child: Image.asset(
                                     "images/tv.JPG",
                                     height: 70,
@@ -493,14 +436,7 @@ class _Service_de_menageState extends State<Service_de_menage> {
                                   ),
                                 ),
                                 TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Cleaning_service_Calender1()),
-                                    );
-                                  },
+                                  onPressed: () {},
                                   child: Image.asset(
                                     "images/wardrobe.JPG",
                                     height: 70,
@@ -571,9 +507,9 @@ class _Service_de_menageState extends State<Service_de_menage> {
                                 minWidth: 10,
                                 color: Colors.grey[90],
                                 onPressed: () {
-                                  setState() {
-                                    Count--;
-                                  }
+                                  setState(() {
+                                    Count++;
+                                  });
                                 },
                                 child: FaIcon(
                                   FontAwesomeIcons.minus,
@@ -587,9 +523,9 @@ class _Service_de_menageState extends State<Service_de_menage> {
                                 minWidth: 10,
                                 color: Colors.grey[90],
                                 onPressed: () {
-                                  setState() {
+                                  setState(() {
                                     Count++;
-                                  }
+                                  });
                                 },
                                 child: FaIcon(
                                   FontAwesomeIcons.plus,

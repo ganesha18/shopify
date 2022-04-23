@@ -9,6 +9,7 @@ import '../../vehicle/confirmLocation.dart';
 import '../cleaningPage/commandConfirm.dart';
 import 'cleaningCalenderPage.dart';
 import 'commandConfirm.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class NewCard extends StatefulWidget {
   const NewCard({Key? key}) : super(key: key);
@@ -26,6 +27,7 @@ class _NewCardState extends State<NewCard> {
   final Expired_Month = new TextEditingController();
   final Expired_year = new TextEditingController();
   final CVV = new TextEditingController();
+  final Service = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,6 +158,21 @@ class _NewCardState extends State<NewCard> {
                       ),
                     ),
                     SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, right: 20, top: 10),
+                      child: Container(
+                        child: TextFormField(
+                          controller: Service,
+                          keyboardType: TextInputType.text,
+                          decoration: ThemeHelper()
+                              .textInputDecoration('Specify service', ''),
+                        ),
+                        decoration: ThemeHelper().inputBoxDecorationShaddow(),
+                      ),
+                    ),
+                    SizedBox(
                       height: 5,
                     ),
                     Padding(
@@ -198,39 +215,82 @@ class _NewCardState extends State<NewCard> {
                       child: Row(children: [
                         Container(
                           height: 50,
-                          width: 220,
-                          // padding: EdgeInsets.fromLTRB(5, 10, 160, 10),
-                          child: Container(
-                            height: 70,
-                            width: 250,
-                            child: Row(children: [
-                              TextFormField(
-                                controller: Expired_Month,
-                                keyboardType: TextInputType.number,
-                                decoration: ThemeHelper().textInputDecoration(
-                                    " expiration_Month", ''),
-                                validator: (val) {
-                                  if (val!.isEmpty) {
-                                    return "Enter your expiration";
-                                  }
-                                  return null;
-                                },
-                              ),
-                              TextFormField(
-                                controller: Expired_year,
-                                keyboardType: TextInputType.number,
-                                decoration: ThemeHelper().textInputDecoration(
-                                    " expiration_year", ''),
-                                validator: (val) {
-                                  if (val!.isEmpty) {
-                                    return "Enter your year";
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ]),
-                            decoration:
-                                ThemeHelper().inputBoxDecorationShaddow(),
+                          width: 115,
+                          //padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            controller: Expired_Month,
+                            decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              filled: true,
+                              labelText: "month",
+                              hintText: "",
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(20, 10, 25, 10),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  borderSide: BorderSide(color: Colors.grey)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  borderSide:
+                                      BorderSide(color: Colors.grey.shade400)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  borderSide: BorderSide(
+                                      color: Colors.grey, width: 2.0)),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  borderSide: BorderSide(
+                                      color: Colors.red, width: 2.0)),
+                            ),
+                            validator: (val) {
+                              if (val!.isEmpty) {
+                                return "Enter your expired month";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        Container(
+                          height: 50,
+                          width: 100,
+                          //padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            controller: Expired_year,
+                            decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              filled: true,
+                              labelText: "year",
+                              hintText: "",
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(20, 10, 25, 10),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  borderSide: BorderSide(color: Colors.grey)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  borderSide:
+                                      BorderSide(color: Colors.grey.shade400)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  borderSide: BorderSide(
+                                      color: Colors.grey, width: 2.0)),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  borderSide: BorderSide(
+                                      color: Colors.red, width: 2.0)),
+                            ),
+                            validator: (val) {
+                              if (val!.isEmpty) {
+                                return "Enter your year";
+                              }
+                              return null;
+                            },
                           ),
                         ),
                         SizedBox(
@@ -352,46 +412,44 @@ class _NewCardState extends State<NewCard> {
                                   TextStyle(color: Colors.white, fontSize: 24),
                             ),
                             onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                {
-                                  var request = BraintreeDropInRequest(
-                                    tokenizationKey:
-                                        'sandbox_d58mdypz_k5nt8znxd6zhc2dz',
-                                    collectDeviceData: true,
-                                    googlePaymentRequest:
-                                        BraintreeGooglePaymentRequest(
-                                      totalPrice: '4.20',
-                                      currencyCode: 'USD',
-                                      billingAddressRequired: false,
-                                    ),
-                                    paypalRequest: BraintreePayPalRequest(
-                                      amount: '4.20',
-                                      displayName: '$name'.toString(),
-                                    ),
-                                    cardEnabled: true,
-                                  );
-                                  final result =
-                                      await BraintreeDropIn.start(request);
-                                }
-                                final request1 = BraintreeCreditCardRequest(
-                                  cardNumber: '$Card_number'.toString(),
-                                  expirationMonth: '$Expired_Month'.toString(),
-                                  expirationYear: '$Expired_year'.toString(),
-                                  cvv: '$CVV'.toString(),
+                              {
+                                var request = BraintreeDropInRequest(
+                                  tokenizationKey:
+                                      'sandbox_d58mdypz_k5nt8znxd6zhc2dz',
+                                  collectDeviceData: true,
+                                  googlePaymentRequest:
+                                      BraintreeGooglePaymentRequest(
+                                    totalPrice: '4.20',
+                                    currencyCode: 'USD',
+                                    billingAddressRequired: false,
+                                  ),
+                                  paypalRequest: BraintreePayPalRequest(
+                                    amount: '4.20',
+                                    displayName: '$name',
+                                  ),
+                                  cardEnabled: true,
                                 );
                                 final result =
-                                    await Braintree.tokenizeCreditCard(
-                                  tokenizationKey =
-                                      "sandbox_d58mdypz_k5nt8znxd6zhc2dz",
-                                  request1,
-                                );
-                                sendUserDataToDB();
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CustomDialog()),
-                                );
+                                    await BraintreeDropIn.start(request);
                               }
+                              final request1 = BraintreeCreditCardRequest(
+                                cardNumber: '$Card_number',
+                                expirationMonth: '$Expired_Month',
+                                expirationYear: '$Expired_year',
+                                cvv: '$CVV',
+                              );
+                              final result = await Braintree.tokenizeCreditCard(
+                                tokenizationKey =
+                                    "sandbox_d58mdypz_k5nt8znxd6zhc2dz",
+                                request1,
+                              );
+                              sendUserDataToDB();
+                              sendUserDataToDB1();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CustomDialog()),
+                              );
                             }),
                       ),
                     ),
@@ -405,15 +463,29 @@ class _NewCardState extends State<NewCard> {
     );
   }
 
-  sendUserDataToDB() async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    var currentUser = _auth.currentUser;
+  sendUserDataToDB1() async {
+    final collection = FirebaseFirestore.instance.collection('Admin1');
 
-    CollectionReference _collectionRef =
-        FirebaseFirestore.instance.collection("Admin");
-    return _collectionRef.doc(currentUser!.email).set({
+    // Write the server's timestamp and the user's feedback
+    await collection.doc().set({
       'timestamp': FieldValue.serverTimestamp(),
       'name': name.text,
+      'Service': Service.text,
+      'Card_number': Card_number.text,
+      'Expired_Month': Expired_Month.text,
+      'Expired_year': Expired_year.text,
+      'CVV': CVV.text,
+    });
+  }
+
+  sendUserDataToDB() async {
+    final collection = FirebaseFirestore.instance.collection('Admin');
+
+    // Write the server's timestamp and the user's feedback
+    await collection.doc(FirebaseAuth.instance.currentUser!.email).set({
+      'timestamp': FieldValue.serverTimestamp(),
+      'name': name.text,
+      'Service': Service.text,
       'Card_number': Card_number.text,
       'Expired_Month': Expired_Month.text,
       'Expired_year': Expired_year.text,

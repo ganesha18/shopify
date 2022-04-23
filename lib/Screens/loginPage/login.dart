@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/common/theme_Helper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../Components/bottombar.dart';
 import '../home.dart';
 import '../signInPage.dart';
 import 'forgetPasswordScreen.dart';
@@ -179,6 +180,9 @@ class _loginState extends State<login> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
+                        SizedBox(
+                          height: 4,
+                        ),
                         Text(
                           "Remember Me",
                           style: TextStyle(
@@ -244,10 +248,6 @@ class _loginState extends State<login> {
                   ),
                 ),
                 onPressed: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home()),
-                  );
                   signIn(emailController.text, passwordController.text);
                 },
                 color: Color.fromRGBO(253, 107, 34, 0.8),
@@ -352,7 +352,7 @@ class _loginState extends State<login> {
           .then((value) => {
                 Fluttertoast.showToast(msg: "Login Successful"),
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => Home())),
+                    MaterialPageRoute(builder: (context) => bottomBar())),
               });
     } on FirebaseAuthException catch (error) {
       switch (error.code) {

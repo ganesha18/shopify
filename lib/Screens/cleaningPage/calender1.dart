@@ -300,7 +300,7 @@ class _Cleaning_service_Calender2State
               children: [
                 TextButton(
                     child: Text(
-                        "$category".toUpperCase(),
+                        "main".toUpperCase(),
                         style: TextStyle(fontSize: 16,
                             color: Colors.white
                         )
@@ -325,7 +325,7 @@ class _Cleaning_service_Calender2State
                 SizedBox(width: 10,),
                 TextButton(
                     child: Text(
-                        "$category".toUpperCase(),
+                        "appartment".toUpperCase(),
                         style: TextStyle(fontSize: 16,
                             color: Colors.black)
                     ),
@@ -492,18 +492,27 @@ class _Cleaning_service_Calender2State
                             ),
                             child: FlatButton.icon(
                               onPressed: () async {
-
-                                    String message;
-
-                                try {
                                   final collection = FirebaseFirestore.instance
-                                      .collection("users-favourite-items")
+                                      .collection("users-form-data")
                                       .doc(FirebaseAuth
                                       .instance.currentUser!.email)
                                       .collection("Calender");
 
-                                // Write the server's timestamp and the user's feedback
-                                await collection.doc().set({
+                                  // Write the server's timestamp and the user's feedback
+                                  await collection.doc().set({
+                                    'timestamp': FieldValue.serverTimestamp(),
+                                    'currentDate': _currentDate,
+                                    'TargetDate': _targetDateTime ,
+                                    'selectedDate': _currentDate2,
+                                    'category' : category,
+                                    'time': time
+                                  });
+                                  final collection1 = FirebaseFirestore.instance
+                                      .collection("Calender")
+                                      .doc(FirebaseAuth
+                                      .instance.currentUser!.email);
+                                  // Write the server's timestamp and the user's feedback
+                                await collection1.set({
                                 'timestamp': FieldValue.serverTimestamp(),
                                 'currentDate': _currentDate,
                                 'TargetDate': _targetDateTime ,
@@ -511,15 +520,9 @@ class _Cleaning_service_Calender2State
                                  'category' : category,
                                   'time': time
                                 });
-
-                                message = '';
-                                } catch (e) {
-                                  message = 'Error when sending feedback';
-                                }
-
-                                // Show a snackbar with the result
+                             // Show a snackbar with the result
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(message)));
+                                    SnackBar(content: Text("")));
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

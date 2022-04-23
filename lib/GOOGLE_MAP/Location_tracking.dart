@@ -5,6 +5,7 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../receipt/receipt.dart';
 import 'google_map_api.dart';
 import 'dart:math' show cos, sqrt, asin;
 import 'dart:math';
@@ -47,7 +48,9 @@ class _MapViewState extends State<MapView> {
 
   String _startAddress = '';
   String _destinationAddress = '';
-  String? _placeDistance;
+  double? _placeDistance;
+  double? _placeDistance1;
+  double? cost;
 
   Set<Marker> markers = {};
 
@@ -240,13 +243,21 @@ class _MapViewState extends State<MapView> {
       );
 
       // Calculating the distance between the start and the end positions
-      // with a straight path, without considering any route
-      // double distanceInMeters = await Geolocator.bearingBetween(
-      //   startLatitude,
-      //   startLongitude,
-      //   destinationLatitude,
-      //   destinationLongitude,
-      // );
+      // with a straight pa`th, without considering any route
+      double distanceInMeters = await Geolocator.distanceBetween(
+        startLatitude,
+        startLongitude,
+        destinationLatitude,
+        destinationLongitude,
+      );
+      double _coordinateDistance(lat1, lon1, lat2, lon2) {
+        var p = 0.017453292519943295;
+        var c = cos;
+        var a = 0.5 -
+            c((lat2 - lat1) * p) / 2 +
+            c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+        return 12742 * asin(sqrt(a));
+      }
 
       await _createPolylines(startLatitude, startLongitude, destinationLatitude,
           destinationLongitude);
@@ -264,15 +275,22 @@ class _MapViewState extends State<MapView> {
         );
       }
 
-      setState(() {
-        _placeDistance = totalDistance.toStringAsFixed(2);
-        print('DISTANCE: $_placeDistance km');
-        final FirebaseAuth _auth = FirebaseAuth.instance;
-        var currentUser = _auth.currentUser;
-        CollectionReference _collectionRef =
-            FirebaseFirestore.instance.collection("location");
-        _collectionRef.doc(currentUser!.email).set({
+      setState(() async {
+        //_placeDistance = totalDistance.toStringAsFixed(2);
+        _placeDistance = distanceInMeters / 1000;
+        cost = ((_placeDistance)! * (125.56 * 0.08)) / 100;
+
+        print('DISTANCE:  $_placeDistance km');
+
+        final collection = FirebaseFirestore.instance.collection('distance');
+        // Write the server's timestamp and the user's feedback
+        await collection.doc(FirebaseAuth.instance.currentUser!.email).set({
           'placeDistance': _placeDistance,
+          'cost': cost,
+          'startLatitude': startLatitude,
+          'startLongitude': startLongitude,
+          'destinationLatitude': destinationLatitude,
+          'destinationLongitude': destinationLongitude
         });
       });
       return true;
@@ -462,16 +480,6 @@ class _MapViewState extends State<MapView> {
                                 });
                               }),
                           SizedBox(height: 10),
-                          Visibility(
-                            visible: _placeDistance == null ? false : true,
-                            child: Text(
-                              'DISTANCE: $_placeDistance km ',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
                           SizedBox(height: 5),
                           Column(children: [
                             SizedBox(
@@ -500,18 +508,6 @@ class _MapViewState extends State<MapView> {
                             onPressed: (_startAddress != '' &&
                                     _destinationAddress != '')
                                 ? () async {
-                                    final collection = FirebaseFirestore
-                                        .instance
-                                        .collection("users-favourite-items")
-                                        .doc(FirebaseAuth
-                                            .instance.currentUser!.email)
-                                        .collection("location");
-
-                                    await collection.doc().set({
-                                      'timestamp': FieldValue.serverTimestamp(),
-                                      'Source': _startAddress,
-                                      'destination': _destinationAddress,
-                                    });
                                     startAddressFocusNode.unfocus();
                                     desrinationAddressFocusNode.unfocus();
                                     setState(() {
@@ -521,6 +517,19 @@ class _MapViewState extends State<MapView> {
                                       if (polylineCoordinates.isNotEmpty)
                                         polylineCoordinates.clear();
                                       _placeDistance = null;
+                                    });
+                                    final collection = FirebaseFirestore
+                                        .instance
+                                        .collection("users-form-data")
+                                        .doc(FirebaseAuth
+                                            .instance.currentUser!.email)
+                                        .collection("location");
+
+                                    // Write the server's timestamp and the user's feedback
+                                    await collection.doc().set({
+                                      'timestamp': FieldValue.serverTimestamp(),
+                                      'Source': _startAddress,
+                                      'destination': _destinationAddress,
                                     });
                                     _calculateDistance()
                                         .then((isCalculated) async {
@@ -541,6 +550,11 @@ class _MapViewState extends State<MapView> {
                                           ),
                                         );
                                       }
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => reciept()),
+                                      );
                                     });
                                   }
                                 : null,

@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../Faq.dart';
+import '../cleaningPage/calender1.dart';
 import '../home.dart';
 import 'calender.dart';
 
@@ -15,6 +17,7 @@ class Painting_service extends StatefulWidget {
 
 class _Painting_serviceState extends State<Painting_service> {
   int count = 0;
+  String rating = '0';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,8 +75,7 @@ class _Painting_serviceState extends State<Painting_service> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => Home()),
+                          MaterialPageRoute(builder: (context) => Home()),
                         );
                       },
                       icon: Icon(
@@ -161,17 +163,21 @@ class _Painting_serviceState extends State<Painting_service> {
                               itemBuilder: (BuildContext context, int index) =>
                                   Card(
                                 child: Column(children: [
-                                  TextButton(onPressed: (){
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Painting_service_Calender()),
-                                    );
-                                  }, child: Image.asset(
-                                    "images/painting2.JPG",
-                                    height: 180,
-                                    width: 280,
-                                  ),),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Painting_service_Calender()),
+                                      );
+                                    },
+                                    child: Image.asset(
+                                      "images/painting2.JPG",
+                                      height: 180,
+                                      width: 280,
+                                    ),
+                                  ),
                                 ]),
                               ),
                             ),
@@ -187,6 +193,40 @@ class _Painting_serviceState extends State<Painting_service> {
                                 width: 30,
                               ),
                               TextButton(
+                                  onPressed: () async {
+                                    String message;
+                                    try {
+                                      final collection = FirebaseFirestore.instance
+                                          .collection("users-form-data")
+                                          .doc(FirebaseAuth
+                                          .instance.currentUser!.email)
+                                          .collection("paintingsservice");
+                                      // Get a reference to the `feedback` collection
+                                      //final collection = FirebaseFirestore.instance.collection('Cleaning_Service');
+
+                                      // Write the server's timestamp and the user's feedback
+                                      await collection.doc().set({
+                                        'timestamp': FieldValue.serverTimestamp(),
+                                        'home1': 'home1',
+                                        'home2': '',
+                                        'home3': ''
+                                      });
+
+                                      message = 'Successfully';
+                                    } catch (e) {
+                                      message = 'Error';
+                                    }
+
+                                    // Show a snackbar with the result
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text(message)));
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Cleaning_service_Calender2()),
+                                    );
+                                  },
                                   child: Image.asset(
                                     "images/home1.JPG",
                                     height: 130,
@@ -206,22 +246,42 @@ class _Painting_serviceState extends State<Painting_service> {
                                                   BorderRadius.circular(18.0),
                                               side: BorderSide(
                                                   color: Colors.white)))),
-                                  onPressed: ()  async {
-                                    final collection = FirebaseFirestore.instance
-                                        .collection("users-favourite-items")
-                                        .doc(FirebaseAuth
-                                        .instance.currentUser!.email)
-                                        .collection("paintingsservice");
-
-                                    await collection.doc().set({
-                                      'timestamp': FieldValue.serverTimestamp(),
-                                      'home1': 'home1',
-                                      'home2': '',
-                                      'home3': ''
-                                    });
-
-                                  }),
+                                  ),
                               TextButton(
+                                  onPressed: () async {
+                                    String message;
+                                    try {
+                                      final collection = FirebaseFirestore.instance
+                                          .collection("users-form-data")
+                                          .doc(FirebaseAuth
+                                          .instance.currentUser!.email)
+                                          .collection("paintingsservice");
+                                      // Get a reference to the `feedback` collection
+                                      //final collection = FirebaseFirestore.instance.collection('Cleaning_Service');
+
+                                      // Write the server's timestamp and the user's feedback
+                                      await collection.doc().set({
+                                        'timestamp': FieldValue.serverTimestamp(),
+                                        'home1': '',
+                                        'home2': 'home2',
+                                        'home3': ''
+                                      });
+
+                                      message = 'succesfully send';
+                                    } catch (e) {
+                                      message ='error';
+                                    }
+
+                                    // Show a snackbar with the result
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text(message)));
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Cleaning_service_Calender2()),
+                                    );
+                                  },
                                   child: Image.asset(
                                     "images/home2.JPG",
                                     height: 130,
@@ -241,22 +301,42 @@ class _Painting_serviceState extends State<Painting_service> {
                                                   BorderRadius.circular(18.0),
                                               side: BorderSide(
                                                   color: Colors.white)))),
-                                  onPressed: ()  async {
-                                    final collection = FirebaseFirestore.instance
-                                        .collection("users-favourite-items")
-                                        .doc(FirebaseAuth
-                                        .instance.currentUser!.email)
-                                        .collection("paintingsservice");
-
-                                    await collection.doc().set({
-                                      'timestamp': FieldValue.serverTimestamp(),
-                                      'home1': '',
-                                      'home2': 'home2',
-                                      'home3': ''
-                                    });
-
-                                  }),
+                              ),
                               TextButton(
+                                  onPressed: () async {
+                                    String message;
+                                    try {
+                                      final collection = FirebaseFirestore.instance
+                                          .collection("users-form-data")
+                                          .doc(FirebaseAuth
+                                          .instance.currentUser!.email)
+                                          .collection("paintingsservice");
+                                      // Get a reference to the `feedback` collection
+                                      //final collection = FirebaseFirestore.instance.collection('Cleaning_Service');
+
+                                      // Write the server's timestamp and the user's feedback
+                                      await collection.doc().set({
+                                        'timestamp': FieldValue.serverTimestamp(),
+                                        'home1': '',
+                                        'home2': '',
+                                        'home3': 'home3'
+                                      });
+
+                                      message = 'send service  ';
+                                    } catch (e) {
+                                      message = 'Error';
+                                    }
+
+                                    // Show a snackbar with the result
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text(message)));
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Cleaning_service_Calender2()),
+                                    );
+                                  },
                                   child: Image.asset(
                                     "images/home3.JPG",
                                     height: 130,
@@ -276,20 +356,7 @@ class _Painting_serviceState extends State<Painting_service> {
                                                   BorderRadius.circular(18.0),
                                               side: BorderSide(
                                                   color: Colors.white)))),
-                                  onPressed: () async {
-                                    final collection = FirebaseFirestore.instance
-                                        .collection("users-favourite-items")
-                                        .doc(FirebaseAuth
-                                        .instance.currentUser!.email)
-                                        .collection("paintingsservice");
-
-                                    await collection.doc().set({
-                                      'timestamp': FieldValue.serverTimestamp(),
-                                      'home1': '',
-                                      'home2': '',
-                                      'home3': 'home2'
-                                    });
-                                  }),
+                                 ),
                             ],
                           ),
                         ),
@@ -303,30 +370,35 @@ class _Painting_serviceState extends State<Painting_service> {
                               Container(
                                 height: 50,
                                 width: 50,
-                              child: Icon(
-                                Icons.account_circle_sharp,
-                                color: Colors.yellow[300],
-                              ),),
+                                child: Icon(
+                                  Icons.account_circle_sharp,
+                                  color: Colors.yellow[300],
+                                ),
+                              ),
                               SizedBox(
                                 width: 5,
                               ),
-                              Column(
-                                children:[
-                              Text(
-                                "Required Person       ",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),  ),
-                                SizedBox(width: 5,),
-                                Text("Regular Cost is \$5/hr total", style: TextStyle(
-                                  color: Colors.grey[200],
-                                  fontSize: 14
-                                ),),
-                                Text("cost will be caculated later", style: TextStyle(
-                                    color: Colors.grey[200],
-                                    fontSize: 14
-                                ),),
+                              Column(children: [
+                                Text(
+                                  "Required Person       ",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  "Regular Cost is \$5/hr total",
+                                  style: TextStyle(
+                                      color: Colors.grey[200], fontSize: 14),
+                                ),
+                                Text(
+                                  "cost will be caculated later",
+                                  style: TextStyle(
+                                      color: Colors.grey[200], fontSize: 14),
+                                ),
                               ]),
                               SizedBox(
                                 width: 5,
@@ -366,7 +438,8 @@ class _Painting_serviceState extends State<Painting_service> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 20),
+                          padding: EdgeInsets.only(
+                              left: 20, top: 10, right: 20, bottom: 20),
                           child: Container(
                             height: 60,
                             width: 325,
@@ -374,10 +447,11 @@ class _Painting_serviceState extends State<Painting_service> {
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(color: Colors.deepOrange),
                               color: Color.fromRGBO(253, 107, 34, 0.8),
-
                             ),
                             child: FlatButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                showRating();
+                              },
                               label: Center(
                                 child: Text(
                                   "Proceed",
@@ -405,4 +479,60 @@ class _Painting_serviceState extends State<Painting_service> {
       ),
     );
   }
+
+  Widget buidRating() => RatingBar.builder(
+        initialRating: 3,
+        minRating: 1,
+        direction: Axis.horizontal,
+        allowHalfRating: true,
+        itemCount: 5,
+        updateOnDrag: true,
+        itemSize: 35,
+        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+        itemBuilder: (context, _) => Icon(
+          Icons.star,
+          color: Colors.amber,
+        ),
+        onRatingUpdate: (rating) {
+          setState(() {
+            this.rating = rating.toString();
+          });
+          print(rating);
+        },
+      );
+
+  void showRating() => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: Text("Rating this App"),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Please Leave a Star rating",
+                  style: TextStyle(fontSize: 20),
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                buidRating(),
+              ],
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    FirebaseFirestore.instance
+                        .collection('rating')
+                        .add({'rating': '$rating'});
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "OK",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  )),
+            ],
+          ));
 }

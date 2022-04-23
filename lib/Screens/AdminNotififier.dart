@@ -13,14 +13,13 @@ class AdminPanel extends StatefulWidget {
 class _AdminPanelState extends State<AdminPanel> {
   List _orders = [];
   var _firestoreInstance = FirebaseFirestore.instance;
-
   fetchProducts() async {
-    QuerySnapshot qn = await _firestoreInstance.collection("Admin").get();
+    QuerySnapshot qn = await _firestoreInstance.collection("Admin1").get();
     setState(() {
       for (int i = 0; i < qn.docs.length; i++) {
         _orders.add({
-          "timestamp": qn.docs[i]["timestamp"],
           'name': qn.docs[i]["name"],
+          'Service': qn.docs[i]["Service"],
         });
       }
     });
@@ -39,7 +38,7 @@ class _AdminPanelState extends State<AdminPanel> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepOrangeAccent,
-        title: Center(child: Text(" ADMIN PANEL")),
+        title: Text("           ADMIN PANEL"),
       ),
       body: Column(
         children: [
@@ -67,16 +66,19 @@ class _AdminPanelState extends State<AdminPanel> {
                           //    border: Border.all(color: Colors.grey),
                           // color: Colors.deepOrange,
                         ),
-                        child: Row(children: [
+                        child: Column(children: [
                           Text(
-                            "${_orders[index]["name"]}",
+                            "Name: ${_orders[index]["name"]}",
                             style: TextStyle(fontSize: 18, color: Colors.black),
                           ),
                           SizedBox(
-                            width: 16,
+                            height: 10,
+                          ),
+                          SizedBox(
+                            height: 10,
                           ),
                           Text(
-                            "${_orders[index]["timestamp"]}",
+                            "Service: ${_orders[index]["Service"]}",
                             style: TextStyle(fontSize: 18, color: Colors.black),
                           ),
                         ]),
