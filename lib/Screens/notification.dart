@@ -179,7 +179,7 @@ class _notificationState extends State<notification> {
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 color: Colors.black),
-                                          ),
+                                          )
                                         ]),
                                       ),
                                     ),

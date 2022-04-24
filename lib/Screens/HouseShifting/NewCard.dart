@@ -425,7 +425,7 @@ class _NewCardState extends State<NewCard> {
                                   ),
                                   paypalRequest: BraintreePayPalRequest(
                                     amount: '4.20',
-                                    displayName: '$name',
+                                    displayName: '$name'.toString(),
                                   ),
                                   cardEnabled: true,
                                 );
@@ -433,10 +433,10 @@ class _NewCardState extends State<NewCard> {
                                     await BraintreeDropIn.start(request);
                               }
                               final request1 = BraintreeCreditCardRequest(
-                                cardNumber: '$Card_number',
-                                expirationMonth: '$Expired_Month',
-                                expirationYear: '$Expired_year',
-                                cvv: '$CVV',
+                                cardNumber: '$Card_number'.toString(),
+                                expirationMonth: '$Expired_Month'.toString(),
+                                expirationYear: '$Expired_year'.toString(),
+                                cvv: '$CVV'.toString(),
                               );
                               final result = await Braintree.tokenizeCreditCard(
                                 tokenizationKey =

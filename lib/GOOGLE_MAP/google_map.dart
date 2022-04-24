@@ -29,22 +29,28 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
           print('Marker Tapped');
         },
         // position: LatLng(40.7128, -74.0060)
-        position: LatLng(40.7128, -74.0060)));
+        position: LatLng(27.409970, -32.874450)));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Maps'),
+        backgroundColor: Colors.deepOrangeAccent,
+        title: Text(
+          ' Selectionner la destination',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
       ),
       body: Stack(children: [
         Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: GoogleMap(
-            initialCameraPosition:
-                CameraPosition(target: LatLng(40.7128, -74.0060), zoom: 12.0),
+            initialCameraPosition: CameraPosition(
+                target: LatLng(27.409970, -32.874450), zoom: 12.0),
             markers: Set.from(allMarkers),
             onMapCreated: mapCreated,
           ),
@@ -55,12 +61,13 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
             onTap: movetoBoston,
             child: Container(
               height: 50.0,
-              width: 200.0,
+              width: 230.0,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.deepOrange),
-                color: Color.fromRGBO(253, 107, 34, 0.8),
-              ),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.deepOrange),
+                  color: Colors.deepOrange
+                  //color: Color.fromRGBO(253, 107, 34, 0.8),
+                  ),
               child: FlatButton.icon(
                 onPressed: () {
                   bottomSheet(context);
@@ -83,6 +90,9 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
               ),
             ),
           ),
+        ),
+        SizedBox(
+          height: 30,
         ),
         Align(
           alignment: Alignment.bottomRight,

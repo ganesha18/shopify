@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:flutter_project/GOOGLE_MAP/google_map.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -46,10 +47,9 @@ class _MapViewState extends State<MapView> {
   final startAddressFocusNode = FocusNode();
   final desrinationAddressFocusNode = FocusNode();
 
-  String _startAddress = '';
-  String _destinationAddress = '';
+  String _startAddress = '2045, Lodgevilla Road, Eagan';
+  String _destinationAddress = '3329 Joyce Stree';
   double? _placeDistance;
-  double? _placeDistance1;
   double? cost;
 
   Set<Marker> markers = {};
@@ -278,7 +278,8 @@ class _MapViewState extends State<MapView> {
       setState(() async {
         //_placeDistance = totalDistance.toStringAsFixed(2);
         _placeDistance = distanceInMeters / 1000;
-        cost = ((_placeDistance)! * (125.56 * 0.08)) / 100;
+        cost = (((_placeDistance)! * (125.56 * 0.08)) / 100).toStringAsFixed(2)
+            as double?;
 
         print('DISTANCE:  $_placeDistance km');
 
@@ -428,7 +429,7 @@ class _MapViewState extends State<MapView> {
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.only(top: 500.0),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white70,
@@ -442,44 +443,19 @@ class _MapViewState extends State<MapView> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
+                          SizedBox(height: 10),
                           Text(
-                            'Places',
+                            '2045 Lodvilla Road, Eagran...',
                             style: TextStyle(fontSize: 20.0),
                           ),
-                          SizedBox(height: 10),
-                          _textField(
-                              label: 'Start',
-                              hint: 'Choose starting point',
-                              prefixIcon: Icon(Icons.looks_one),
-                              suffixIcon: IconButton(
-                                icon: Icon(Icons.my_location),
-                                onPressed: () {
-                                  startAddressController.text = _currentAddress;
-                                  _startAddress = _currentAddress;
-                                },
-                              ),
-                              controller: startAddressController,
-                              focusNode: startAddressFocusNode,
-                              width: width,
-                              locationCallback: (String value) {
-                                setState(() {
-                                  _startAddress = value;
-                                });
-                              }),
-                          SizedBox(height: 10),
-                          _textField(
-                              label: 'Destination',
-                              hint: 'Choose destination',
-                              prefixIcon: Icon(Icons.looks_two),
-                              controller: destinationAddressController,
-                              focusNode: desrinationAddressFocusNode,
-                              width: width,
-                              locationCallback: (String value) {
-                                setState(() {
-                                  _destinationAddress = value;
-                                });
-                              }),
-                          SizedBox(height: 10),
+                          Divider(),
+                          Text(
+                            '3329 Joyce Stree                  ',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
                           SizedBox(height: 5),
                           Column(children: [
                             SizedBox(
@@ -496,7 +472,7 @@ class _MapViewState extends State<MapView> {
                                     Image.network(
                                       _location[index]["img"][0],
                                       height: 60,
-                                      width: 90,
+                                      width: 100,
                                     ),
                                     Text("${_location[index]["text"]}"),
                                   ]),
@@ -553,25 +529,30 @@ class _MapViewState extends State<MapView> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => reciept()),
+                                            builder: (context) =>
+                                                GoogleMapPage()),
                                       );
                                     });
                                   }
                                 : null,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Show Route'.toUpperCase(),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20.0,
+                              child: Container(
+                                width: 200,
+                                height: 50,
+                                child: Center(
+                                  child: Text(
+                                    "Continuer",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 25),
+                                  ),
                                 ),
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
                               primary: Colors.red,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
                           ),
@@ -587,7 +568,7 @@ class _MapViewState extends State<MapView> {
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 10.0, bottom: 10.0),
+                  padding: const EdgeInsets.only(right: 10.0, bottom: 300.0),
                   child: ClipOval(
                     child: Material(
                       color: Colors.orange.shade100, // button color

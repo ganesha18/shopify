@@ -242,7 +242,7 @@ class _recieptState extends State<reciept> {
                                             width: 115,
                                           ),
                                           Text(
-                                            "",
+                                            "${cost[0]["cost"]}".toString(),
                                             style: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 14),
@@ -306,7 +306,7 @@ class _recieptState extends State<reciept> {
                                             width: 190,
                                           ),
                                           Text(
-                                            "${cost[0]["text"]}",
+                                            "",
                                             style: TextStyle(
                                                 color: Colors.deepOrange[400],
                                                 fontSize: 14),
